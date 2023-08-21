@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "4fe47e1b4e60867b",
+        "id": "cc3454784196768a",
         "type": "tabs",
         "children": [
           {
-            "id": "5d66e706684f84ec",
+            "id": "8ac0dc268b5fe004",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Week 1/Intro to C++.md",
                 "mode": "source",
                 "source": false
               }
@@ -86,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "Week 1/Intro to C++.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "Week 1/Intro to C++.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md"
+                "file": "Week 1/Intro to C++.md"
               }
             }
           }
@@ -147,8 +147,13 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "5d66e706684f84ec",
+  "active": "f10140f33d13e094",
   "lastOpenFiles": [
-    "Untitled.md"
+    "Week 1",
+    ":n",
+    "untitled folder",
+    "README.md",
+    "Week 1/Intro to C++.md",
+    "obsidian.md"
   ]
 }
