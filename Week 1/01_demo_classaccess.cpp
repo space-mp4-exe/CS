@@ -17,13 +17,13 @@ void Student::print_SID() { cout << "SID = " << SID << endl; };
 Student::Student() { SID = 0; }
 
 int main() {
-  int x, y, z = 5;
-  cout << x << endl;
+  int y, z = 5;
+  cout << y << endl;
   cout << z << endl;
   Student x;
   x.print_SID();
   x.set_SID(30);
   x.print_SID();
-  // cout << x.SID;
+   cout << x.SID;
   return 0;
 }
