@@ -8,13 +8,13 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e2b1ce1b228c9ffe",
+            "id": "22db7258afedc63b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Week 1/Pointers.md",
-                "mode": "preview",
+                "file": "Week 2/Pointers cont.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Week 1/Pointers.md",
+                "file": "Week 2/Pointers cont.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Week 1/Pointers.md",
+                "file": "Week 2/Pointers cont.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Week 1/Pointers.md"
+                "file": "Week 2/Pointers cont.md"
               }
             }
           }
@@ -146,21 +146,21 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e2b1ce1b228c9ffe",
+  "active": "22db7258afedc63b",
   "lastOpenFiles": [
+    "Week 1/Pointers.md",
+    "Week 1/Intro to C++.md",
+    "Week 2/Pointers cont.md",
+    "demo",
+    "Demo.cpp",
+    "Week 2",
+    "untitled folder",
     "Week 1/01_demo_classaccess.exe",
     "Week 1/01_demo_classaccess.cpp",
     "Week 1/01_demo_argpassing.exe",
     "Week 1/01_demo_argpassing.cpp",
     "Week 1/02_qa_pointerprint.dSYM/Contents/Resources/DWARF/02_qa_pointerprint",
     "Week 1/02_qa_pointerprint.dSYM/Contents/Resources/DWARF",
-    "Week 1/02_qa_pointerprint.dSYM/Contents/Resources",
-    "Week 1/02_qa_pointerprint.dSYM/Contents/Info.plist",
-    "Week 1/02_qa_pointerprint.dSYM/Contents",
-    "Week 1/02_qa_pointerprint.dSYM",
-    "Week 1/02_qa_pointerprint",
-    "Week 1/Intro to C++.md",
-    "Week 1/Pointers.md",
     "README.md",
     "obsidian.md"
   ]

@@ -1,4 +1,4 @@
-```
+```C++
 #include <iostream>
 
 int main()
@@ -14,7 +14,7 @@ int main()
 ```
 
 the header is assumed to include 
-```
+```C++
 #include <iostream>
 
 using namespace std;
@@ -25,7 +25,7 @@ You can initialize multiple variables in one line with commas.
 `endl` is basically  `/n`.
 
 You have to declare a function before it is called if the function is below the parent function that it is called in. We have to declare `Sum` because it is defined after `main`.
-```
+```C++
 int main()
 {
 	int x=1, y=2, z;
