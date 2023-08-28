@@ -30,3 +30,25 @@ x.set_SID(30);
 x.print_SID();
 ```
 
+pass variable to function with pointers
+
+```
+int main(){
+	int x = 5;
+	int *ptr = &x;
+
+	Increment_V(*ptr);
+	cout << x; //<- prints out 5
+
+	Increment_R(*ptr);
+	cout << x; //<- prints out 6
+}
+
+void Increment_V(int a){
+	a++;
+}
+
+void Increment_R(int &a){
+	a++;
+}
+```
