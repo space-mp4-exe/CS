@@ -2,17 +2,14 @@
 using namespace std;
 
 int main(){
-	int x = 3, y = 5;
+	int x = 5;
+	int *p = &x;
+	int **pp = &p;
 
-    void swap(int *a, int *b);
-    swap(&x, &y);
-    cout << x << y;
+	cout << p << endl;
 
-    return 0;
-}
+	p++;
 
-void swap(int *a, int *b){
-    int temp = *b;
-    *b = *a;
-    *a = temp;
+	cout << p << endl;
+	cout << *pp;
 }
