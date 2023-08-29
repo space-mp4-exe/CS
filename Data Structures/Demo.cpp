@@ -3,14 +3,18 @@ using namespace std;
 
 int main(){
 	int x = 5;
-	int y = 3;
 
-	int add(int* a, int* b);
-	int z = add(&x, &y);
+	void Operator_1(int* ptr);
+	void Operator_2(int*& ptr);
 
-	cout << z;
+	Operator_1(&x);
+	//Operator_2(&x);
 }
 
-int add(int* a, int* b){
-	return *a + *b;
+void Operator_1(int* ptr){
+	cout << *ptr;
+}
+
+void Operator_2(int*& ptr){
+	cout << *ptr;
 }
