@@ -8,11 +8,15 @@
         "type": "tabs",
         "children": [
           {
-            "id": "22db7258afedc63b",
+            "id": "0de5b89b4448f3f2",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Discrete Structures/Set Theory.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Discrete Structures/Set Theory.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Discrete Structures/Set Theory.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Discrete Structures/Set Theory.md"
+              }
             }
           }
         ]
@@ -138,8 +146,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "22db7258afedc63b",
+  "active": "0de5b89b4448f3f2",
   "lastOpenFiles": [
+    "Discrete Structures/Set Theory.md",
+    "README.md",
     "Discrete Structures",
     "untitled folder",
     "Assignments/hw_1_C++.cpp",
@@ -155,9 +165,7 @@
     "Data Structures/Week 1/01_demo_argpassing.cpp",
     "Data Structures/Week 1",
     "Data Structures/README.md",
-    "Data Structures/Demo.cpp",
     "Week 1/Pointers.md",
-    "README.md",
     "Week 1/Intro to C++.md",
     "obsidian.md"
   ]
