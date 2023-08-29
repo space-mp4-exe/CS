@@ -3,13 +3,14 @@ using namespace std;
 
 int main(){
 	int x = 5;
-	int *p = &x;
-	int **pp = &p;
+	int y = 3;
 
-	cout << p << endl;
+	int add(int* a, int* b);
+	int z = add(&x, &y);
 
-	p++;
+	cout << z;
+}
 
-	cout << p << endl;
-	cout << *pp;
+int add(int* a, int* b){
+	return *a + *b;
 }
