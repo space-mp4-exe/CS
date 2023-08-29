@@ -11,12 +11,8 @@
             "id": "22db7258afedc63b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Week 2/Pointers cont.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Week 2/Pointers cont.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Week 2/Pointers cont.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Week 2/Pointers cont.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -148,20 +140,25 @@
   },
   "active": "22db7258afedc63b",
   "lastOpenFiles": [
-    "Week 1/Pointers.md",
-    "Week 1/Intro to C++.md",
-    "Week 2/Pointers cont.md",
-    "demo",
-    "Demo.cpp",
-    "Week 2",
+    "Discrete Structures",
     "untitled folder",
-    "Week 1/01_demo_classaccess.exe",
-    "Week 1/01_demo_classaccess.cpp",
-    "Week 1/01_demo_argpassing.exe",
-    "Week 1/01_demo_argpassing.cpp",
-    "Week 1/02_qa_pointerprint.dSYM/Contents/Resources/DWARF/02_qa_pointerprint",
-    "Week 1/02_qa_pointerprint.dSYM/Contents/Resources/DWARF",
+    "Assignments/hw_1_C++.cpp",
+    "Assignments",
+    "hw_1_C++.cpp",
+    "Week 2/Pointers cont.md",
+    "Data Structures/Week 2/Pointers cont.md",
+    "Data Structures/Week 2",
+    "Data Structures/Week 1/Pointers.md",
+    "Data Structures/Week 1/Intro to C++.md",
+    "Data Structures/Week 1/02_qa_pointerprint.cpp",
+    "Data Structures/Week 1/01_demo_classaccess.cpp",
+    "Data Structures/Week 1/01_demo_argpassing.cpp",
+    "Data Structures/Week 1",
+    "Data Structures/README.md",
+    "Data Structures/Demo.cpp",
+    "Week 1/Pointers.md",
     "README.md",
+    "Week 1/Intro to C++.md",
     "obsidian.md"
   ]
 }
