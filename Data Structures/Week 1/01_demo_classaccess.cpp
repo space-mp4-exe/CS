@@ -24,6 +24,6 @@ int main() {
   x.print_SID();
   x.set_SID(30);
   x.print_SID();
-   cout << x.SID;
+  //cout << x.SID;
   return 0;
 }

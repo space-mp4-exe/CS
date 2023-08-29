@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "e2b1ce1b228c9ffe",
+            "id": "0de5b89b4448f3f2",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Week 1/Pointers.md",
+                "file": "Discrete Structures/Set Theory.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Week 1/Pointers.md",
+                "file": "Discrete Structures/Set Theory.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Week 1/Pointers.md",
+                "file": "Discrete Structures/Set Theory.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Week 1/Pointers.md"
+                "file": "Discrete Structures/Set Theory.md"
               }
             }
           }
@@ -146,8 +146,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e2b1ce1b228c9ffe",
+  "active": "0de5b89b4448f3f2",
   "lastOpenFiles": [
+<<<<<<< HEAD
     "Week 1/Intro to C++.md",
     "Week 1/Pointers.md",
     "Week 1/01_demo_classaccess.exe",
@@ -160,7 +161,27 @@
     "Week 1/02_qa_pointerprint.dSYM/Contents/Info.plist",
     "Week 1/02_qa_pointerprint.dSYM/Contents",
     "Week 1/02_qa_pointerprint.dSYM",
+=======
+    "Discrete Structures/Set Theory.md",
+>>>>>>> aaefad176494a8ebc74f3772e250671077df9d3e
     "README.md",
+    "Discrete Structures",
+    "untitled folder",
+    "Assignments/hw_1_C++.cpp",
+    "Assignments",
+    "hw_1_C++.cpp",
+    "Week 2/Pointers cont.md",
+    "Data Structures/Week 2/Pointers cont.md",
+    "Data Structures/Week 2",
+    "Data Structures/Week 1/Pointers.md",
+    "Data Structures/Week 1/Intro to C++.md",
+    "Data Structures/Week 1/02_qa_pointerprint.cpp",
+    "Data Structures/Week 1/01_demo_classaccess.cpp",
+    "Data Structures/Week 1/01_demo_argpassing.cpp",
+    "Data Structures/Week 1",
+    "Data Structures/README.md",
+    "Week 1/Pointers.md",
+    "Week 1/Intro to C++.md",
     "obsidian.md"
   ]
 }
