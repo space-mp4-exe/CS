@@ -73,8 +73,7 @@ public:
 	// the range of the current vector. 
 	void erase(int idx);
 
-	// The constructor should initialize 
-	// pointer "p" to NULL and "size" to 0. 
+	// The constructor should initialize pointer "p" to NULL and "size" to 0. 
 	MyVector();
 
 private:
@@ -88,7 +87,26 @@ private:
 	// vector operations. 
 };
 
-
+MyVector::MyVector(){
+	size = 0;
+	p = NULL;
+};
+	
+int MyVector::vsize(){
+	return size;
+};
+int MyVector::empty(){ 
+	if(size == 0){
+		return -1;
+	}
+	return 1;
+};
+int MyVector::at(int idx){ 
+	if(idx >= size){
+		return -1;
+	}
+	return p[idx];
+};
 // The main function has been completed for you. 
 // It is used to test your implmentation. 
 // You should not modify it (unless there is typo).
