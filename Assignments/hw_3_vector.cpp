@@ -107,6 +107,51 @@ int MyVector::at(int idx){
 	}
 	return p[idx];
 };
+
+void MyVector::resize(int n){
+	int *arr = new int[n];
+	for(int i = 0; i < n; i++){
+		if(size > i){
+			arr[i] = p[i];
+		}
+		else{
+			arr[i] = 0;
+		}
+	}
+	p = arr;
+	size = n;
+};
+
+void MyVector::push_back(int x){
+	p[size] = x;
+	size++;
+};
+
+void MyVector::pop_back(){
+	if(size > 0){
+		resize(size - 1);
+	}
+};
+
+void MyVector::insert(int idx, int x){
+	if(idx < size || idx >= 0){
+		resize(size + 1);
+		for(int i = size - 1; i > idx; i--){
+			p[i] = p[i - 1];
+		}
+		p[idx] = x;
+	}
+};
+
+void MyVector::erase(int idx){
+	if(idx < size || idx >= 0){
+		for(;idx < size + 1; idx++){
+			p[idx] = p[idx + 1];
+		}
+		pop_back();
+	}
+};
+
 // The main function has been completed for you. 
 // It is used to test your implmentation. 
 // You should not modify it (unless there is typo).
