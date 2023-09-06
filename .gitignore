@@ -1,5 +1,5 @@
 .vscode/
 .obsidian/
-.DS_Store/
-.dSYM/
-.exe/
+.DS_Store
+.dSYM
+~/.exe
