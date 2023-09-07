@@ -167,7 +167,7 @@ int main()
 {
 	MyVector x;
 
-	//
+	/*
 	MyVector test;
 	test.push_back(1);
 	cout << test.vsize() << endl;
@@ -176,8 +176,8 @@ int main()
 	test.push_back(3);
 	cout << test.vsize() << endl;
 	cout << test.at(0) << test.at(1) << test.at(2) << endl;
-	
-	//
+	*/
+
 	int mode;
 	int new_size, idx, data;
 	int temp;
