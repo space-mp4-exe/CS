@@ -111,7 +111,11 @@ int MyVector::at(int idx){
 };
 
 void MyVector::resize(int n){
+	if(size == 0 || p == NULL){
+		p = new int[n];
+	}
 	int *arr = new int[n];
+
 	for(int i = 0; i < n; i++){
 		if(size > i){
 			arr[i] = p[i]; //problem here
@@ -121,7 +125,7 @@ void MyVector::resize(int n){
 		}
 	}
 	p = arr;
-	cout << p[n - 1];
+	//cout << p[n - 1];
 	size = n;
 };
 
@@ -166,12 +170,12 @@ int main()
 	//
 	MyVector test;
 	test.push_back(1);
-	//cout << test.vsize() << endl;
+	cout << test.vsize() << endl;
 	test.push_back(2);
-	//cout << test.vsize() << endl;
+	cout << test.vsize() << endl;
 	test.push_back(3);
-	//cout << test.vsize() << endl;
-	//cout << test.at(0) << test.at(1) << test.at(2) << endl;
+	cout << test.vsize() << endl;
+	cout << test.at(0) << test.at(1) << test.at(2) << endl;
 	
 	//
 	int mode;
