@@ -95,14 +95,16 @@ MyVector::MyVector(){
 int MyVector::vsize(){
 	return size;
 };
+
 int MyVector::empty(){ 
 	if(size == 0){
-		return -1;
+		return 1;
 	}
-	return 1;
+	return 0;
 };
+
 int MyVector::at(int idx){ 
-	if(idx >= size){
+	if(idx >= size || idx < 0){
 		return -1;
 	}
 	return p[idx];
@@ -112,19 +114,21 @@ void MyVector::resize(int n){
 	int *arr = new int[n];
 	for(int i = 0; i < n; i++){
 		if(size > i){
-			arr[i] = p[i];
+			arr[i] = p[i]; //problem here
 		}
 		else{
 			arr[i] = 0;
 		}
 	}
 	p = arr;
+	cout << p[n - 1];
 	size = n;
 };
 
 void MyVector::push_back(int x){
-	p[size] = x;
 	size++;
+	resize(size);
+	p[size - 1] = x;
 };
 
 void MyVector::pop_back(){
@@ -159,6 +163,17 @@ int main()
 {
 	MyVector x;
 
+	//
+	MyVector test;
+	test.push_back(1);
+	//cout << test.vsize() << endl;
+	test.push_back(2);
+	//cout << test.vsize() << endl;
+	test.push_back(3);
+	//cout << test.vsize() << endl;
+	//cout << test.at(0) << test.at(1) << test.at(2) << endl;
+	
+	//
 	int mode;
 	int new_size, idx, data;
 	int temp;
