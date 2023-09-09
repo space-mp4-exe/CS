@@ -100,33 +100,33 @@ int MyVector::empty(){
 	if(size == 0){
 		return 1;
 	}
-	return 0;
+	return 0; //returns 0 if there is something in the array
 };
 
 int MyVector::at(int idx){ 
-	if(idx >= size || idx < 0){
+	if(idx >= size || idx < 0){ //returns -1 if idx is outside the range of the array
 		return -1;
 	}
 	return p[idx];
 };
 
 void MyVector::resize(int n){
-	if(size == 0 || p == NULL){
+	if(size == 0 || p == NULL){//checks if p is NULL
 		p = new int[n];
 	}
-	int *arr = new int[n];
+	int *arr = new int[n];//temp array 
 
 	for(int i = 0; i < n; i++){
 		if(size > i){
-			arr[i] = p[i]; //problem here
+			arr[i] = p[i];
 		}
 		else{
 			arr[i] = 0;
 		}
 	}
 	p = arr;
-	//cout << p[n - 1];
 	size = n;
+	delete[] arr;
 };
 
 void MyVector::push_back(int x){
@@ -136,7 +136,7 @@ void MyVector::push_back(int x){
 };
 
 void MyVector::pop_back(){
-	if(size > 0){
+	if(size > 0){//checks if the size is bigger than one, does nothing otherwize
 		resize(size - 1);
 	}
 };
@@ -144,6 +144,7 @@ void MyVector::pop_back(){
 void MyVector::insert(int idx, int x){
 	if(idx < size || idx >= 0){
 		resize(size + 1);
+		//shifts the array over 1 to the right
 		for(int i = size - 1; i > idx; i--){
 			p[i] = p[i - 1];
 		}
@@ -166,17 +167,6 @@ void MyVector::erase(int idx){
 int main()
 {
 	MyVector x;
-
-	/*
-	MyVector test;
-	test.push_back(1);
-	cout << test.vsize() << endl;
-	test.push_back(2);
-	cout << test.vsize() << endl;
-	test.push_back(3);
-	cout << test.vsize() << endl;
-	cout << test.at(0) << test.at(1) << test.at(2) << endl;
-	*/
 
 	int mode;
 	int new_size, idx, data;
