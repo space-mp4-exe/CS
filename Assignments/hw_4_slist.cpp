@@ -181,12 +181,12 @@ void List::Create(){
 	first.Set_GPA(GPA);
 
 	while(cin >> SID >> GPA){
-		Node next;
-		next.Set_SID(SID);
-		next.Set_GPA(GPA);
-		next.Set_Pnext(NULL);
-		temp->Set_Pnext(&next); //temp is the address of the preivous node.
-		temp = &next;
+		Node *next;
+		next->Set_SID(SID);
+		next->Set_GPA(GPA);
+		next->Set_Pnext(NULL);
+		temp->Set_Pnext(next); //temp is the address of the preivous node.
+		temp = next;
 	}
 };
 int List::Lsize(){
