@@ -60,7 +60,7 @@ void Node::Set_Pnext(Node* p) {
 Node* Node::Get_Pnext() {
 	return p_next;
 }
-Node::Node() {
+Node::Node() { 
 	SID = -1;
 	GPA = -1;
 	p_next = NULL;
@@ -189,14 +189,36 @@ void List::Create(){
 	}
 };
 int List::Lsize(){
-	return -1;
+	int size = 0;
+	Node *temp = head;
+	while(temp != NULL){
+		size++;
+		temp = temp->Get_Pnext();
+	}
+	return size;
 };
 Node* List::Find(int key){
-	Node *a; 
-	return a;
+	Node *temp = head;
+	while(temp != NULL){
+		if(key == temp->Get_SID()){
+			return temp;
+		}
+	}
+	return NULL;
 };
 int List::Insert(Node* p, int idx){
-	return -1;
+	//out of bounds catchter, if out of bounds return -1
+	//cannot add node before head
+	if(idx < 1 || idx > Lsize() + 1){
+		return -1;
+	}
+	Node *temp = head;
+	for(int i = 0; i < idx && temp != NULL; i++){
+		temp = temp->Get_Pnext();
+	}
+	p->Set_Pnext(temp->Get_Pnext());
+	temp->Set_Pnext(p);
+	return 1;
 };
 int List::Remove(int idx){
 	return -1;
