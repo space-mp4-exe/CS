@@ -184,6 +184,7 @@ void List::Create(){
 		Node next;
 		next.Set_SID(SID);
 		next.Set_GPA(GPA);
+		next.Set_Pnext(NULL);
 		temp->Set_Pnext(&next); //temp is the address of the preivous node.
 		temp = &next;
 	}
