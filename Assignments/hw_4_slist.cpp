@@ -173,20 +173,21 @@ void List::PrtSID() {
 //TODO fill stubs
 void List::Create(){
 	int SID, GPA;
-	cin >> SID >> GPA;
-	Node first;
-	head = &first;
-	Node *temp = head;
-	first.Set_SID(SID);
-	first.Set_GPA(GPA);
+	Node *temp = NULL;
+	Node *prev = NULL;
 
 	while(cin >> SID >> GPA){
-		Node *next;
-		next->Set_SID(SID);
-		next->Set_GPA(GPA);
-		next->Set_Pnext(NULL);
-		temp->Set_Pnext(next); //temp is the address of the preivous node.
-		temp = next;
+		temp = new Node;
+		temp->Set_SID(SID);
+		temp->Set_GPA(GPA);
+		if(head == NULL){
+			head = temp;
+			prev = temp;
+		}
+		else{
+		prev->Set_Pnext(temp); //temp is the address of the preivous node.
+		prev = temp;
+		}
 	}
 };
 int List::Lsize(){
@@ -204,6 +205,7 @@ Node* List::Find(int key){
 		if(key == temp->Get_SID()){
 			return temp;
 		}
+		temp = temp->Get_Pnext();
 	}
 	return NULL;
 };
