@@ -170,7 +170,7 @@ void List::PrtSID() {
 		temp = temp->Get_Pnext();
 	}
 }
-//TODO fill stubs
+
 void List::Create(){
 	int SID, GPA;
 	Node *temp = NULL;
@@ -185,8 +185,8 @@ void List::Create(){
 			prev = temp;
 		}
 		else{
-		prev->Set_Pnext(temp); //temp is the address of the preivous node.
-		prev = temp;
+			temp->Set_Pnext(head);
+			head = temp;
 		}
 	}
 };
@@ -215,22 +215,59 @@ int List::Insert(Node* p, int idx){
 	if(idx < 1 || idx > Lsize() + 1){
 		return -1;
 	}
+
 	Node *temp = head;
-	for(int i = 0; i < idx && temp != NULL; i++){
+	//moves temp to index before idx
+	for(int i = 0; i < idx && temp->Get_Pnext() != NULL; i++){
 		temp = temp->Get_Pnext();
 	}
-	p->Set_Pnext(temp->Get_Pnext());
+
+	if(temp->Get_Pnext() == NULL){
+		p->Set_Pnext(temp->Get_Pnext());
+	}
 	temp->Set_Pnext(p);
+
 	return 1;
 };
 int List::Remove(int idx){
-	return -1;
+	if(idx < 0 || idx > Lsize()){
+		return -1;
+	}
+
+	Node *temp = head;
+	//removes head if idx is 1
+	if(idx == 1){
+		head = head->Get_Pnext();
+	}
+	//removes tail if idx is Lsize
+	if(idx == Lsize()){
+		//moves temp to second to last Node
+		while(temp->Get_Pnext() != NULL){
+			temp = temp->Get_Pnext();
+		}
+		temp->Set_Pnext(NULL);
+	}
+	else{
+		for(int i = 0; i < idx - 2 && temp->Get_Pnext() != NULL; i++){
+			temp = temp->Get_Pnext();
+		}
+		temp->Set_Pnext(temp->Get_Pnext()->Get_Pnext());
+	}
+	return 1;
 };
 void List::Reverse(){
-
+	Node *temp = head;
+	Node reversed;
+	int size = Lsize();
+	for(int i = 0; i < size; i++){
+		temp = temp->Get_Pnext();
+		reversed = *temp;
+		reversed.Set_Pnext(NULL);
+		Insert(&reversed, 1);
+	}
 };
 void List::Clear(){
-	
+	head = NULL;	
 };
 
 int main()
@@ -300,5 +337,3 @@ int main()
 
 	return 0;
 }
-
-
