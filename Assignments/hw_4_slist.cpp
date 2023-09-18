@@ -174,7 +174,6 @@ void List::PrtSID() {
 void List::Create(){
 	int SID, GPA;
 	Node *temp = NULL;
-	Node *prev = NULL;
 
 	while(cin >> SID >> GPA){
 		temp = new Node;
@@ -182,9 +181,9 @@ void List::Create(){
 		temp->Set_GPA(GPA);
 		if(head == NULL){
 			head = temp;
-			prev = temp;
 		}
 		else{
+			//adds the new Node onto the head.
 			temp->Set_Pnext(head);
 			head = temp;
 		}
@@ -193,6 +192,7 @@ void List::Create(){
 int List::Lsize(){
 	int size = 0;
 	Node *temp = head;
+	//counts all the nodes together
 	while(temp != NULL){
 		size++;
 		temp = temp->Get_Pnext();
@@ -207,6 +207,7 @@ Node* List::Find(int key){
 		}
 		temp = temp->Get_Pnext();
 	}
+	//returns NULL if key is not found 
 	return NULL;
 };
 int List::Insert(Node* p, int idx){
@@ -257,13 +258,18 @@ int List::Remove(int idx){
 };
 void List::Reverse(){
 	Node *temp = head;
-	Node reversed;
+	Node *reversed; //this is a temp node 
 	int size = Lsize();
-	for(int i = 0; i < size; i++){
+	for(int i = 0; temp->Get_Pnext() != NULL; i++){
 		temp = temp->Get_Pnext();
-		reversed = *temp;
-		reversed.Set_Pnext(NULL);
-		Insert(&reversed, 1);
+		if(i == 0){ //sets the first element's next pointer to NULL since it's the new end node
+			head->Set_Pnext(NULL);
+		}
+		reversed = new Node;
+		reversed->Set_GPA(temp->Get_GPA());
+		reversed->Set_SID(temp->Get_SID());
+		reversed->Set_Pnext(head);
+		head = reversed;
 	}
 };
 void List::Clear(){
