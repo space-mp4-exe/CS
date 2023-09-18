@@ -1,5 +1,15 @@
 # Sets
-- $Q = \{a/b | a \in Z \land b \in Z^+\}$
+**Set** - Unordered collection of elements
+- $A \in B$ "$A$ is an element of $B$", "$A$ is a member of $B$"
+- $A\not\in B$ "$A$ is not an element of $B$"
+**Standard Sets** 
+- Natural Numbers $\mathbb{N} = \{0, 1, 2\}$ 
+- Integers $\mathbb{Z} = \{-2, -1, 0, 1\}$
+- Real Numbers $\mathbb{R} = \{0, 1, 2, \pi\}$ 
+**Examples**
+- $A = \{x\mid P(x)\}$ "Set of all $x$ such that $P(x)$"
+- $A = \{x\mid x\in N \land x > 7\} = \{8, 9, 10\}$ set builder notation
+- $Q = \{a/b | a \in Z \land b \in Z^+\}$ set of rational numbers
 
 ## Subsets
 - $A \subseteq B$ "A is a subset of B"
@@ -19,5 +29,11 @@ Cardinality doesn't say anything about the contents of a set
 **Cartesian Product** - $A \times B = \{(a, b) | a \in A \land b\in B\}$ 
 $A = \{x, y\}$, $B = \{a, b, c\}$ -> $A\times B = \{(x,a), (x,b), (x,c), (y,a), (y,b), (y,c)\}$ 
 sort of like a [dot product](https://en.wikipedia.org/wiki/Dot_product). 
+
+## Set Operations
+- **Union**($\cup$) - $A\cup B = \{x\mid x\in A \lor x\in B\}$ 
+	- **EX**: If $A = \{1, 2, 3\}$, $B = \{4, 5, 6\}$ then $A\cup B =\{1, 2, 3, 4, 5, 6\}$ 
+- **Intersection**($\cap$) - $A \cap B = \{x\mid x\in A \land x\in B\}$ 
+	- **EX**: if $A = \{1, 2, 3\}$ and $B = \{2, 3, 4\}$ then $A\cap B = \{2, 3\}$ 
 
 how can we prove $A \cup(B\cap C) = (A\cup B)\cap (A \cup C)$ 
