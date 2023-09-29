@@ -138,6 +138,33 @@ public:
 	void PrintTable();
 };
 
+int HashTable::hash(int key){
+	return key % size;
+};
+
+void HashTable::CreateTable(int divisor){
+	table = new Node*[divisor];
+	size = divisor;
+
+};
+
+Node* HashTable::Search(int key){
+	Node *x = new Node();
+	return x;
+};
+
+void HashTable::Add(Node* temp){
+	int hashedNode = hash(temp->Get_key());
+	
+};
+
+void HashTable::Remove(int key){
+
+};
+
+int HashTable::Get_Size(){
+	return size;
+};
 
 // This is the constructor. 
 // It is defined for you. 
