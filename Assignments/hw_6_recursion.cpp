@@ -44,6 +44,7 @@ public:
     int Get_SID();
     void Set_Pnext(Node *p);
     Node *Get_Pnext();
+    Node();
 
 private:
     int SID;
@@ -119,9 +120,40 @@ Node::Node()
 int BSearch(int arr[], int key)
 {
     int mid;
-    mid = sizeof(arr) / 2;
-    if(mid == key);
+    int arrSize = sizeof(arr)/sizeof(int);
+    mid = arrSize/ 2;
+
+    //returns -1 if key is not in array
+    if(key < arr[0] || key > arr[arrSize - 1]){
+        return -1;
+    }
+
+    //base case, returns index of key
+    if(arr[mid]== key){
+        cout << arr[mid];
+        cout << mid;
+        return mid;
+    }
+
+    if(arr[mid] < key){
+        int *rightSide = new int(mid);
+        for(int i = 0; i < arrSize / 2; i++){
+            rightSide[i] = arr[i + mid + 1];
+        }
+        cout << arr[mid];
+        return BSearch(rightSide, key);
+    }
+    
+    if(arr[mid] > key){
+        int *leftSide = new int(mid);
+        for(int i = 0; i < mid; i++){
+            leftSide[i] = arr[i];
+        }
+        cout << arr[mid];
+        return BSearch(leftSide, key);
+    }
 }
+
 //
 // ----------------------------
 // ---------- Task 2 ----------
@@ -187,7 +219,7 @@ int main()
         // One input should be "L1" (search list)
         // Another input should be "key" (search key)
         // Complete the input based on your design.
-        cout << BSearch();
+        cout << BSearch(L1, key);
     }
     // Mode 1: test MSort()
     else if (mode == 1)
