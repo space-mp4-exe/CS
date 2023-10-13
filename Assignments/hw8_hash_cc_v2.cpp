@@ -133,9 +133,14 @@ private:
 	// a hash code h(key) = key % divisor.
 	int hash(int key);
 
+	//doubles the size of table and rehashes the keys
+	void rehash();
+
 	// This is a pointer to the hash table.  
 	// Note it is a pointer of objects. 
 	Node* table;
+
+	int originalSize;
 
 
 public:
@@ -216,6 +221,23 @@ public:
 };
 
 
+int HashTable::hash(int key){
+	return key % size;
+}
+
+void HashTable::rehash(){
+	Node *data = new Node[size];//temporary array to hold data from the table while we rehash them all
+	for(int i = 0; i < size; i++){
+		data[i] = table[i];
+	}
+	CreateTable(size * 2);
+	for(int i = 0; i < size / 2; i++){//copying data into new, larger table
+		table[i].Set_key(data[i].Get_key());
+		table[i].Set_index(data[i].Get_index());
+	}
+	delete[] data;
+}
+
 // This is the constructor. 
 // It is defined for you. 
 HashTable::HashTable() {
@@ -245,6 +267,64 @@ void HashTable::PrintChain(int key) {
 	}
 }
 
+void HashTable::CreateTable(int divisor){
+	table = new Node[divisor];
+	size = divisor;
+	for(int i = 0; i < size; i++){
+		table[i].Set_key(-1);
+		table[i].Set_index(-1);
+	}
+}
+
+int HashTable::Search(int key){
+	return -1;
+}
+
+void HashTable::Add(Node temp){
+	int hashedNode = hash(temp.Get_key());
+	if(table[hashedNode].Get_key() == -1){
+		table[hashedNode].Set_key(temp.Get_key());
+	}
+	else if(table[hashedNode].Get_index() != -1){
+		int nextIndex = table[hashedNode].Get_index();
+		while(table[nextIndex].Get_index() != -1){//go to the end of the index list
+			nextIndex = table[nextIndex].Get_index();
+		}
+		int lastIndex = nextIndex;//lastIndex is the previous node in the index list
+
+		while(table[nextIndex].Get_key() != -1){//from the end of the index list, find the first empty spot
+			nextIndex++;
+			if(nextIndex == size){ //if we can't find space for the node, rehash the table
+				rehash();
+				Add(temp);
+				return;//stop the function
+			}
+		}
+		table[lastIndex].Set_index(nextIndex);
+		table[nextIndex].Set_key(temp.Get_key());
+	}
+	else{
+		int nextIndex = hashedNode + 1;
+		while(table[nextIndex].Get_key() != -1){
+			nextIndex++;
+			if(nextIndex == size){//if we can't find space for the node, rehash the table
+				rehash();
+				Add(temp);
+				return;//stop the function
+			}
+		}
+		table[hashedNode].Set_index(nextIndex);
+		table[nextIndex].Set_key(temp.Get_key());
+	}
+}
+
+void HashTable::Remove(int key){
+
+}
+
+int HashTable::Get_Size(){
+	return size;
+}
 
 // --------------
 // Main Function 
