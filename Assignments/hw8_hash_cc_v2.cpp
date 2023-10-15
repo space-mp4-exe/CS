@@ -134,13 +134,15 @@ private:
 	int hash(int key);
 
 	//doubles the size of table and rehashes the keys
-	void rehash();
+	void resize();
 
 	// This is a pointer to the hash table.  
 	// Note it is a pointer of objects. 
 	Node* table;
 
+	bool sizeChanged = false;//keeps track if size has been changed
 	int originalSize;
+	int pointToKey = 0;//index of the element pointing to the element being removed.(used in Remove())
 
 
 public:
@@ -222,13 +224,20 @@ public:
 
 
 int HashTable::hash(int key){
+	if(sizeChanged){
+		return key % originalSize;
+	}
 	return key % size;
 }
 
-void HashTable::rehash(){
+void HashTable::resize(){
 	Node *data = new Node[size];//temporary array to hold data from the table while we rehash them all
 	for(int i = 0; i < size; i++){
 		data[i] = table[i];
+	}
+	if(!sizeChanged){
+		originalSize = size;
+		sizeChanged = true;
 	}
 	CreateTable(size * 2);
 	for(int i = 0; i < size / 2; i++){//copying data into new, larger table
@@ -277,6 +286,22 @@ void HashTable::CreateTable(int divisor){
 }
 
 int HashTable::Search(int key){
+	int index = hash(key);
+	if(table[index].Get_key() == key){
+		return index;
+	}
+	while(table[index].Get_index() != -1){
+		if(table[index].Get_key() == key){
+			return index;
+		}
+		pointToKey= index;
+		index = table[index].Get_index();
+	}
+	for(index = 0; index < size; index++){
+		if(table[index].Get_key() == key){
+			return index;
+		}
+	}
 	return -1;
 }
 
@@ -295,7 +320,7 @@ void HashTable::Add(Node temp){
 		while(table[nextIndex].Get_key() != -1){//from the end of the index list, find the first empty spot
 			nextIndex++;
 			if(nextIndex == size){ //if we can't find space for the node, rehash the table
-				rehash();
+				resize();
 				Add(temp);
 				return;//stop the function
 			}
@@ -308,7 +333,7 @@ void HashTable::Add(Node temp){
 		while(table[nextIndex].Get_key() != -1){
 			nextIndex++;
 			if(nextIndex == size){//if we can't find space for the node, rehash the table
-				rehash();
+				resize();
 				Add(temp);
 				return;//stop the function
 			}
@@ -319,7 +344,13 @@ void HashTable::Add(Node temp){
 }
 
 void HashTable::Remove(int key){
-
+	int index = Search(key);
+	if(index == -1){//if the key is not in the table, do nothing
+		return;
+	}
+	table[pointToKey].Set_index(table[index].Get_index());
+	table[index].Set_key(-1);
+	table[index].Set_index(-1);
 }
 
 int HashTable::Get_Size(){
