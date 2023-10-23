@@ -2,6 +2,7 @@
 #include <list>
 using namespace std;
 
+<<<<<<< HEAD
 void printRightSide(int arr[]){
 	int mid;
 	int arrSize = sizeof(arr)/sizeof(arr[0]);
@@ -14,6 +15,10 @@ void printRightSide(int arr[]){
         }
 		cout << rightSide[0] << rightSide[1] << rightSide[2] << endl;
     }
+=======
+int main(){
+	cout << "hi" << endl;
+>>>>>>> 5af38a3 (changed something)
 }
 
 int main(){
