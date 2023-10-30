@@ -47,8 +47,45 @@ public:
 	Node* Get_left();
 	Node* Get_right();
 	Node* Get_parent();
+	void copy(Node* p);
 	Node();
 };
+Node::Node() {
+	key = 0;
+	p_left = NULL;
+	p_right = NULL;
+	p_parent = NULL;
+}
+void Node::Set_key(int x) {
+	key = x;
+}
+int Node::Get_key() {
+	return key;
+}
+void Node::Set_left(Node* p) {
+	p_left = p;
+}
+void Node::Set_right(Node* p) {
+	p_right = p;
+}
+void Node::Set_parent(Node* p) {
+	p_parent = p;
+}
+Node* Node::Get_left() {
+	return p_left; 
+}
+Node* Node::Get_right() {
+	return p_right;
+}
+Node* Node::Get_parent() {
+	return p_parent;
+}
+void Node::copy(Node* p){
+	p_left = p->Get_left();
+	p_right = p->Get_right();
+	p_parent = p->Get_parent();
+	key = p->Get_key();
+}
 
 class AVL {
 private:
@@ -67,6 +104,7 @@ public:
 	// This function is only used to test 
 	// if your updated AVL/BST is correct. 
 	void PreTraverse();
+	void PreTraverse(Node* root);
 
 	// This function returns the root node. 
 	// Normally we don't need it. Here we 
@@ -144,12 +182,29 @@ public:
 	AVL();
 };
 void AVL::PreTraverse(){
-	
+	PreTraverse(root);
+}
+void AVL::PreTraverse(Node* root){
+	if(root == NULL){
+		return;
+	}
+	cout << root->Get_key();
+	PreTraverse(root->Get_left());
+	PreTraverse(root->Get_right());
 }
 Node* AVL::GetRoot(){
 	return root;
 }
 Node* AVL::Add(Node* p){
+	Node* temp = root;
+	while(temp != NULL){
+		if(p->Get_key() > temp->Get_key()){
+			temp = temp->Get_right();
+		}
+		else{
+			temp = temp->Get_left();
+		}
+	}
 	return NULL;
 }
 Node* AVL::Remove(int key){
@@ -160,8 +215,21 @@ void AVL::Add_AVL(Node* p){
 }
 void AVL::Remove_AVL(int key){
 }
-int height(Node* p){
+int AVL::Height(Node* p){
 	return -1;
+}
+Node* AVL::Rotate_cw(Node* p){
+
+	return NULL;
+}
+Node* AVL::Rotate_cc(Node* p){
+	return NULL;
+}
+Node* AVL::Search(int key){
+	return NULL;
+}
+AVL::AVL(){
+	root = NULL;
 }
 
 // --------------
@@ -233,5 +301,4 @@ int main()
 
 
 	return 0;
-}
-
+};
