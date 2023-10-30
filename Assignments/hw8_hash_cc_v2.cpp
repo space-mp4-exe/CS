@@ -279,7 +279,7 @@ void HashTable::PrintChain(int key) {
 void HashTable::CreateTable(int divisor){
 	table = new Node[divisor];
 	size = divisor;
-	for(int i = 0; i < size; i++){
+	for(int i = 0; i < size; i++){//sets all nodes to -1 and -1
 		table[i].Set_key(-1);
 		table[i].Set_index(-1);
 	}
@@ -348,7 +348,7 @@ void HashTable::Remove(int key){
 	if(index == -1){//if the key is not in the table, do nothing
 		return;
 	}
-	table[pointToKey].Set_index(table[index].Get_index());
+	table[pointToKey].Set_index(table[index].Get_index());//sets the index of the node pointing to the key node to two nodes after it.
 	table[index].Set_key(-1);
 	table[index].Set_index(-1);
 }
