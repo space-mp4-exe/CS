@@ -143,7 +143,26 @@ public:
 	// This function intiailizes root = NULL.
 	AVL();
 };
+void AVL::PreTraverse(){
+	
+}
+Node* AVL::GetRoot(){
+	return root;
+}
+Node* AVL::Add(Node* p){
+	return NULL;
+}
+Node* AVL::Remove(int key){
+	return NULL;
+}
+void AVL::Add_AVL(Node* p){
 
+}
+void AVL::Remove_AVL(int key){
+}
+int height(Node* p){
+	return -1;
+}
 
 // --------------
 // Main Function 
