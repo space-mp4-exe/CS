@@ -30,6 +30,7 @@
 // 
 
 #include <iostream>
+#include <queue>
 using namespace std;
 
 class Node {
@@ -78,7 +79,7 @@ Node* Node::Get_right() {
 	return p_right;
 }
 Node* Node::Get_parent() {
-	return p_parent;
+	return p_parent; 
 }
 void Node::copy(Node* p){
 	p_left = p->Get_left();
@@ -196,16 +197,34 @@ Node* AVL::GetRoot(){
 	return root;
 }
 Node* AVL::Add(Node* p){
+	if(root == NULL){
+		root->copy(p);
+		return root;
+	}
 	Node* temp = root;
 	while(temp != NULL){
 		if(p->Get_key() > temp->Get_key()){
-			temp = temp->Get_right();
+			if(temp->Get_right()){
+				temp = temp->Get_right();
+			}
+			else{//if the right child of the parent node is NULL, replace it with p.
+				p->Set_parent(temp);
+				temp->Set_right(p);
+				break;
+			}
 		}
-		else{
-			temp = temp->Get_left();
+		if(p->Get_key() < temp->Get_key()){
+			if(temp->Get_left()){
+				temp = temp->Get_left();
+			}
+			else{//if the left child of the parent node is NULL, replace it with p.
+				p->Set_parent(temp);
+				temp->Set_left(p);
+				break;
+			}
 		}
 	}
-	return NULL;
+	return p;//IDK what to return here. what's a "proper address"?
 }
 Node* AVL::Remove(int key){
 	return NULL;
@@ -216,13 +235,48 @@ void AVL::Add_AVL(Node* p){
 void AVL::Remove_AVL(int key){
 }
 int AVL::Height(Node* p){
-	return -1;
+	//code from hw10 :P
+	int height = 0;
+
+	queue<Node*> q;
+	q.push(p);
+	q.push(NULL);//NULL marks the end of a layer of the tree, so everytime we encounter NULL, we increment height by 1
+
+	while(!q.empty()){
+		Node *temp = q.front();
+		q.pop();
+		if(temp == NULL){//reached the end of a tier
+			height++;
+		}
+
+		if(temp != NULL){
+			if(temp->Get_left()){
+				q.push(temp->Get_left());
+			}
+			if(temp->Get_right()){
+				q.push(temp->Get_right());
+			}
+		}
+		else if(!q.empty()){
+			q.push(NULL);
+		}
+	}
+	return height - 1;
 }
 Node* AVL::Rotate_cw(Node* p){
-
-	return NULL;
+	Node* temp = p->Get_left();
+	temp->Set_parent(p->Get_parent());
+	p->Set_parent(temp);
+	p->Set_left(temp->Get_right());
+	temp->Set_right(p);
+	return temp;
 }
 Node* AVL::Rotate_cc(Node* p){
+	Node* temp = p->Get_right();
+	temp->Set_parent(p->Get_parent());
+	p->Set_parent(temp);
+	p->Set_right(temp->Get_left());
+	temp->Set_left(p);
 	return NULL;
 }
 Node* AVL::Search(int key){
