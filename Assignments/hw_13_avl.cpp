@@ -29,6 +29,7 @@
 // ***************************************
 // 
 
+#include <algorithm>
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -227,6 +228,14 @@ Node* AVL::Add(Node* p){
 	return p;//IDK what to return here. what's a "proper address"?
 }
 Node* AVL::Remove(int key){
+	Node* remove = Search(key);
+	if(!remove){
+		return NULL;
+	}
+	int leftHeight, rightHeight;
+	if(remove->Get_left()){
+
+	}
 	return NULL;
 }
 void AVL::Add_AVL(Node* p){
@@ -280,7 +289,16 @@ Node* AVL::Rotate_cc(Node* p){
 	return NULL;
 }
 Node* AVL::Search(int key){
-	return NULL;
+	Node* temp = root;
+	while(temp && key != temp->Get_key()){//I don't think this will throw an error
+		if(key > temp->Get_key()){
+			temp = temp->Get_right();
+		}
+		else{
+			temp = temp->Get_left();
+		}
+	}
+	return temp;
 }
 AVL::AVL(){
 	root = NULL;
