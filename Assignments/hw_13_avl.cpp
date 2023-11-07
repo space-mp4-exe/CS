@@ -231,10 +231,36 @@ Node* AVL::Remove(int key){
 	if(!remove){
 		return NULL;
 	}
+
 	int leftHeight, rightHeight;
 	if(remove->Get_left()){
-
+		leftHeight = Height(remove->Get_left());
 	}
+	else{leftHeight = 0;};
+	if(remove->Get_right()){
+		rightHeight = Height(remove->Get_right());
+	}
+	else{rightHeight = 0;};
+
+	if(leftHeight == 0 && rightHeight == 0){
+		remove = NULL;
+		return remove;
+	}
+
+	Node* replacement = remove;
+	if(leftHeight >= rightHeight){
+		replacement = replacement->Get_left();
+		while(replacement->Get_right()){
+			replacement = replacement->Get_right();
+		}
+	}
+	else{
+		replacement = replacement->Get_right();
+		while(replacement->Get_left()){
+			replacement = replacement->Get_left();
+		}
+	}
+
 	return NULL;
 }
 void AVL::Add_AVL(Node* p){
