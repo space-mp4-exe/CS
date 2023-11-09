@@ -20,6 +20,7 @@
 // of nodes based on their keys. 
 // 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 // The node class has been defined for you. 
@@ -54,7 +55,7 @@ Node::Node() {
 // (because we test them in the main function). 
 class MinHeap {
 private:
-	Node* root;
+	vector<Node> root;
 	//int ArraySize;
 	//int HeapSize;
 public:
@@ -88,6 +89,63 @@ public:
 	MinHeap();
 	
 };
+void MinHeap::BSTraverse(){
+	//vector based implementation means I can use for-each loops
+	for(Node node : root){
+		if(node.Get_key() != -1){
+			cout << node.Get_key();
+		}
+	}
+}
+void MinHeap::Add(Node* p){
+	int addedNode;
+
+	//adding to the bottom of the tree
+	if(root[1].Get_key() == -1){
+		root[1].Set_key(p->Get_key());
+		root.shrink_to_fit();
+	}
+	else{
+		root.push_back(*p);
+		addedNode = root.size() - 1;
+	}
+
+	//bubbling up
+	while(root[addedNode].Get_key() < root[addedNode/2].Get_key()){
+		int temp = root[addedNode].Get_key();
+		root[addedNode].Set_key(root[addedNode/2].Get_key());
+		root[addedNode/2].Set_key(temp);
+		addedNode /= 2;
+	}
+}
+void MinHeap::Remove(){
+	root[1].Set_key(root[root.size() - 1].Get_key());//replacing root with last node
+	//bubbling down
+	int removedNode = 1;
+	while(root[removedNode].Get_key() > root[removedNode * 2].Get_key() ||
+		  root[removedNode].Get_key() > root[removedNode * 2 + 1].Get_key()){
+		if(root[removedNode * 2].Get_key() < root[removedNode * 2 + 1].Get_key()){
+			int temp = root[removedNode].Get_key();
+			root[removedNode].Set_key(root[removedNode * 2].Get_key());
+			root[removedNode * 2].Set_key(temp);
+		}
+		else{
+			int temp = root[removedNode].Get_key();
+			root[removedNode].Set_key(root[removedNode * 2 + 1].Get_key());
+			root[removedNode * 2 + 1].Set_key(temp);
+		}
+	}
+	root.pop_back();
+}
+Node* MinHeap::Root(){
+	if(root.size() == 1){
+		return &root[0];
+	}
+	return &root[1];
+}
+MinHeap::MinHeap(){
+	root = vector<Node>(2);
+}
 
 int main()
 {
@@ -126,7 +184,7 @@ int main()
 		// The keys are 5, 4, 3, 2, 1 in "arr".
 		// Do not modify this part.
 		Node arr[5];
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			arr[i].Set_key(5-i);
 		}
 
@@ -137,11 +195,20 @@ int main()
 		// ......
 		// ......
 		// ......
+		heap.Add(&arr[0]);
+		heap.Add(&arr[1]);
+		heap.Add(&arr[2]);
+		heap.Add(&arr[3]);
+		heap.Add(&arr[4]);
 
+		for(int i = 0; i < 5; i++){
+			arr[i] = *heap.Root();
+			heap.Remove();
+		}
 		// At last, we print keys in arr. 
 		// They should be 1, 2, 3, 4, 5. 
 		// Do not modify this part.
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
 			cout << arr[i].Get_key();
 		}
 
