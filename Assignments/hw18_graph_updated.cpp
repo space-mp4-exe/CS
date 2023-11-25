@@ -32,7 +32,7 @@ public:
     int* path;
 };
 
-// Please omplete the graph class. 
+// Please complete the graph class. 
 // Remember this is an undirected graph 
 // of "size" nodes labeled from 0 to size-1. 
 class Graph {
@@ -127,6 +127,34 @@ public:
     // rest entries are zeros. 
     Graph(int n);
 };
+int Graph::Degree(int i){
+    return -1;
+}
+void Graph::Add(int i, int j, int w){
+
+}
+int Graph::IsEdge(int i, int j){
+    return -1;
+}
+int Graph::IsPath(int i, int j){
+    return -1;
+}
+int* Graph::DFT(int i){
+    int* result = new int();
+    return result;
+}
+int* Graph::BFT(int i){
+    int* result = new int();
+    return result;
+}
+Result* Graph::Dijkstra(int i, int j){
+    Result* result = new Result();
+    return result;
+}
+Graph::Graph(int n){
+    size = n;
+    
+}
 
 
 int main()
