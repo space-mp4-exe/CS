@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <string>
+#include <algorithm>
 using namespace std;
 vector<vector<int> > permutations;
 
@@ -13,9 +15,11 @@ vector<int> readFile(){
     int x;
     for(int i = 0; i < line.size(); i++){
         if(line[i] != ','){
-            result.push_back(line[i]);
+            x = line[i] - '0';//converting from char to int
+            result.push_back(x);
         }   
     }
+    file.close();
     return result;
 }
 //returns 0 if v1 and v2 are different, 1 if they are the same
@@ -57,7 +61,7 @@ int v1GreaterThanv2(vector<int> v1, vector<int> v2){
     }
     return 0;
 }
-void sort(){
+void sortArray(){
     int i, j;
     int swapped;
     for(i = 0; i < permutations.size() - 1; i++){
@@ -75,6 +79,8 @@ void sort(){
 }
 //places all the permutations vector, returns something for the sake of the recursion
 vector<vector<int> > findPermutations(vector<int> input){
+    ofstream file;
+    file.open("output-1.csv");
     if(input.size() == 0){
         vector<vector<int> > nothing;
         return nothing;
@@ -84,6 +90,11 @@ vector<vector<int> > findPermutations(vector<int> input){
         one.push_back(input);
         if(!inArray(input)){
             permutations.push_back(input);
+            file << "(";
+            for(int i : input){
+                file << i << ", ";
+            }
+            file << "),";
         }
         return one;
     }
@@ -98,19 +109,27 @@ vector<vector<int> > findPermutations(vector<int> input){
             allPerms.push_back(P);
             if(!inArray(P)){
                 permutations.push_back(P);
+                file << "(";
+                for(int i : P){
+                    file << i << ", ";
+                }
+                file << "),";
             }
         }
         Sx = input;
     }
-    sort();
+    file.close();
     return allPerms;
 }
 void writeFile(){
 
 }
 int main(){
-    vector<int> input = readFile();
+    //vector<int> input(readFile());
+    vector<int> input{2,7,9,5,0,6};
+    sort(input.begin(), input.end());
     findPermutations(input);
+    sortArray();
     writeFile();
     cout << "(";
     for(vector<int> set : permutations){
