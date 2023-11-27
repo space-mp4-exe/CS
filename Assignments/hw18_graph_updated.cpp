@@ -140,13 +140,20 @@ void Graph::printGraph(){
     }
 }
 int Graph::Degree(int i){
-    return -1;
+    int degree = 0;
+    for(int j = 0; j < size; j++){
+        if(m[i][j]){
+            degree++;
+        }
+    }
+    return degree;
 }
 void Graph::Add(int i, int j, int w){
     if(i >= size || j >= size){
         return;
     }
     m[i][j] = w;
+    m[j][i] = w;
 }
 int Graph::IsEdge(int i, int j){
     if(i >= size || j >= size){
