@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <stack>
+#include <queue>
 using namespace std;
 
 class Result {
@@ -203,6 +204,13 @@ int* Graph::DFT(int i){
 }
 int* Graph::BFT(int i){
     int* result = new int();
+    int* visited = new int[size];
+    for(int j = 0; j < size; j++){
+        visited[j] = 0;
+    }
+
+    queue<int> toVisit;
+    toVisit.push(i);
     return result;
 }
 Result* Graph::Dijkstra(int i, int j){
