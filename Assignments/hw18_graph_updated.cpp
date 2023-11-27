@@ -23,6 +23,7 @@
 // 
 
 #include <iostream>
+#include <stack>
 using namespace std;
 
 class Result {
@@ -44,6 +45,9 @@ private:
 
     // this variable holds the number of nodes in graph 
     int size;
+
+    void printGraph();
+    int inArray(int* arr, int i);
 
 public:
 
@@ -127,20 +131,67 @@ public:
     // rest entries are zeros. 
     Graph(int n);
 };
+void Graph::printGraph(){
+    for(int i = 0; i < size; i++){
+        for(int j = 0; j < size; j++){
+            cout << m[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 int Graph::Degree(int i){
     return -1;
 }
 void Graph::Add(int i, int j, int w){
-
+    if(i >= size || j >= size){
+        return;
+    }
+    m[i][j] = w;
 }
 int Graph::IsEdge(int i, int j){
-    return -1;
+    if(i >= size || j >= size){
+        return 0;
+    }
+    return m[i][j] != 0;
+}
+int Graph::inArray(int* arr, int i){
+    for(int index = 0; index < size; index++){
+        if(i == arr[index]){
+            return 1;
+        }
+    }
+    return 0;
 }
 int Graph::IsPath(int i, int j){
-    return -1;
+    int* connections = DFT(i);
+    return inArray(connections, j);
 }
 int* Graph::DFT(int i){
-    int* result = new int();
+    stack<int> backtrack;
+    backtrack.push(i);
+    int* result = new int[size];
+    int* visited = new int[size];
+    int resultIndex = 0;
+
+    for(int index = 0; index < size; index++){
+        visited[index] = 0;
+    }
+
+    while(!backtrack.empty()){
+        int current = backtrack.top();
+        backtrack.pop();
+        
+        if(!visited[current]){
+            visited[current] = 1;
+            result[resultIndex] = current;
+            resultIndex++;
+            for(int i = size - 1; i >= 0; i--){
+                if(m[current][i] && !visited[i]){
+                    backtrack.push(i);
+                }
+            }
+        }
+    }
     return result;
 }
 int* Graph::BFT(int i){
@@ -153,7 +204,15 @@ Result* Graph::Dijkstra(int i, int j){
 }
 Graph::Graph(int n){
     size = n;
-    
+    m = new int*[n];
+    for(int i = 0; i < n; i++){
+        m[i] = new int[n];
+    }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            m[i][j] = 0;
+        }
+    }
 }
 
 
