@@ -25,6 +25,7 @@
 #include <iostream>
 #include <stack>
 #include <queue>
+#include <climits>
 using namespace std;
 
 class Result {
@@ -143,7 +144,7 @@ void Graph::printGraph(){
 int Graph::Degree(int i){
     int degree = 0;
     for(int j = 0; j < size; j++){
-        if(m[i][j]){
+        if(m[i][j]){//counts the number of edges that a node has
             degree++;
         }
     }
@@ -153,6 +154,7 @@ void Graph::Add(int i, int j, int w){
     if(i >= size || j >= size){
         return;
     }
+    //we have to add to the inverse as well
     m[i][j] = w;
     m[j][i] = w;
 }
@@ -162,6 +164,7 @@ int Graph::IsEdge(int i, int j){
     }
     return m[i][j] != 0;
 }
+//finds if i is in arr, returns 1 if it is 0 otherwise. 
 int Graph::inArray(int* arr, int i){
     for(int index = 0; index < size; index++){
         if(i == arr[index]){
@@ -171,7 +174,7 @@ int Graph::inArray(int* arr, int i){
     return 0;
 }
 int Graph::IsPath(int i, int j){
-    int* connections = DFT(i);
+    int* connections = DFT(i);//since DFT only returns nodes that are connected to i, we can just use that 
     return inArray(connections, j);
 }
 int* Graph::DFT(int i){
@@ -181,6 +184,7 @@ int* Graph::DFT(int i){
     int* visited = new int[size];
     int resultIndex = 0;
 
+    //setting all nodes to be unvisited
     for(int index = 0; index < size; index++){
         visited[index] = 0;
     }
@@ -209,12 +213,74 @@ int* Graph::BFT(int i){
         visited[j] = 0;
     }
 
+    int index = 0;
     queue<int> toVisit;
+    //start traversal at i
     toVisit.push(i);
+    visited[i] = 1;
+
+    while(!toVisit.empty()){
+        int curr = toVisit.front();
+        toVisit.pop();
+
+        result[index] = curr;
+        index++;
+
+        //explore neighbors
+        for(int j = 0; j < size; j++){
+            if(m[curr][j] && !visited[j]){
+                toVisit.push(j);
+                visited[j] = 1;
+            }
+        }
+    }
     return result;
 }
 Result* Graph::Dijkstra(int i, int j){
     Result* result = new Result();
+    int* distances = new int[size];
+    int* visited = new int[size];
+    int* lastNode = new int[size];
+    int* path = new int[size];
+    int length = 0;
+    for(int k = 0; k < size; k++){
+        distances[k] = INT_MAX;
+        visited[k] = 0;
+    }
+    distances[i] = 0;
+
+    for(int amount = 0; amount < size - 1; amount++){
+        int minDistance = INT_MAX;
+        int minIndex;
+
+        //finding smallest distance
+        for(int k = 0; k < size; k++){
+            if(!visited[k] && distances[k] <= minDistance){
+                minDistance = distances[k];
+                minIndex = k;
+            }
+        }
+
+        visited[minIndex] = 1;
+        
+        //updating distance values
+        for(int k = 0; k < size; k++){
+            if(!visited[k] && m[minIndex][k] && distances[minIndex] != 
+               distances[minIndex] + m[minIndex][k] < distances[k]){
+                distances[k] = distances[minIndex] + m[minIndex][k];
+                lastNode[k] = minIndex;
+            }
+        }
+    }
+    result->weight = distances[j];
+    int curr = lastNode[j];
+    for(int k = 0; curr != i; k++){
+        path[k] = curr;
+        length++;
+        curr = lastNode[curr];
+    }
+    result->length = length;
+    result->path = path;
     return result;
 }
 Graph::Graph(int n){
@@ -223,6 +289,7 @@ Graph::Graph(int n){
     for(int i = 0; i < n; i++){
         m[i] = new int[n];
     }
+    //initializing everything to 0
     for(int i = 0; i < n; i++){
         for(int j = 0; j < n; j++){
             m[i][j] = 0;
