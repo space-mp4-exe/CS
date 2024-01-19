@@ -1,4 +1,4 @@
-```C++
+```Cpp
 #include <iostream>
 
 int main()
