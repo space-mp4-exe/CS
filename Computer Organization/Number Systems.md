@@ -42,3 +42,26 @@ $$\begin{split}
 \end{split}$$ 
 # Gray Code
 [wiki](https://en.wikipedia.org/wiki/Gray_code) It is a way of writing binary code where only 1 bit is allowed to change when incremented.
+
+# Fixed Point Numbers
+We use a 0 to represent positive numbers and 1 to represent negative numbers. 
+**2s Complement** - Take the complement of a binary number (*eg*. 6 = 0000 0110 -> 1111 1001) and add 1 to it (*eg*. 1111 1001 + 1 = 1111 1010 = -6). Use this to find a negative of a fixed point number.
+We do this to subtract numbers so that we would only need an addition unit in the computer. 
+
+**Overflow** - if the sum of 2 n-bit numbers requires n+1 bits, then an overflow has occurred. If the `XOR` $\oplus$ of the "carry-in" and the "carry-out" of the sign bit is 1, then there was an overflow.
+*Ex*: 70 + 80 = 0100 0110 + 0101 0000 = 1001 0110. 1001 0110 is -106, which is obviously wrong, you can't get a negative numbers when you add two positive numbers. 
+$$
+\begin{split}
+0100 \:0110 \\ 
++0101 \:0000 \\
+\hline 
+1001 \:0110
+\end{split}
+$$**Mantissa** - This is a signed magnitude number where S is the sign bit
+$$
+\begin{flalign}
+N = 1.5 = 1.1_{2} = (1.1)2^0\\
+N = (-1)^{S}2^{E-127}(1.M)\\
+\rightarrow E - 127 = 0
+\end{flalign}
+$$ The range of 32-bit floating point numbers are -127 to 127.
