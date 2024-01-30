@@ -1,0 +1,1 @@
+The first step in compiling a program is lexical analysis. The first step it taking the source code and translating each "word" into a token. 
