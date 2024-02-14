@@ -1,0 +1,1 @@
+A combinational circuit that performs addition of two bits is called a *half adder*.
