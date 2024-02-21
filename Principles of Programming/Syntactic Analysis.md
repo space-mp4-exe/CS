@@ -44,3 +44,27 @@ flowchart TD
 	f2 --> id1
 ```
 
+x + 3 * y
+```mermaid
+%%{init: {"flowchart": {"htmlLabels": false}} }%%
+flowchart TD
+	start["`start`"]
+	e["`e`"]
+	et["`e + t`"]
+	t["`t`"]
+	tf["`t * f`"]
+	f1["f"]
+	f2["f"]
+	id1["`ID`"]
+	id2["ID"]
+	num["`NUM`"]
+	start --> e
+	e --> et
+	et -->t
+	t --> f1
+	f1 --> id1
+	et -->tf
+	tf --> f2
+	tf --> id2
+	f2 --> num
+```
