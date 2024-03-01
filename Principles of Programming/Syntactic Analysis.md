@@ -10,7 +10,7 @@ Checks the high-level structure of a program, meaning that it checks if the code
 - <s> NUMBER </s> $\leftarrow$ This token is needed to make legal.
 - SEMICOLON
 
-10 * x + y  ;
+`10 * x + y;`
 - NUMBER
 - TOKEN_MUL
 - ID
