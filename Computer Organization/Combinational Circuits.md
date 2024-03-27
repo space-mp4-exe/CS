@@ -3,22 +3,24 @@ A combinational circuit that performs addition of two bits is called a *half add
 **SR** 
 excitation table
 
-| start | end | S | R |
-| ---- | ---- | ---- | ---- |
-| 0 | 0 | 0 | x |
-| 0 | 1 | 1 | 0 |
-| 1 | 0 | 0 | 1 |
-| 1 | 1 | x | 0 |
+| start | end | S   | R   |
+| ----- | --- | --- | --- |
+| 0     | 0   | 0   | x   |
+| 0     | 1   | 1   | 0   |
+| 1     | 0   | 0   | 1   |
+| 1     | 1   | x   | 0   |
+
 From what you can see from the table, you cannot have a 11 as the input.
 JK 
 excitation table 
 
-| start | end | J | K |
-| ---- | ---- | ---- | ---- |
-| 0 | 0 | 0 | x |
-| 0 | 1 | 1 | x |
-| 1 | 0 | x | 1 |
-| 1 | 1 | x | 0 |
+| start | end | J   | K   |
+| ----- | --- | --- | --- |
+| 0     | 0   | 0   | x   |
+| 0     | 1   | 1   | x   |
+| 1     | 0   | x   | 1   |
+| 1     | 1   | x   | 0   |
+
 From you can see from the excitation table, JK flip flops are the same as SR flip flops, they just take the complement when the inputs are 11. 
 # Registers
 We can use flip flops to create [registers](https://en.wikipedia.org/wiki/Processor_register), these are basically is very quickly accessible data inside a CPU. The data is called a "word". The length of each word is determined by the type of CPU. If it is a 32-bit CPU, then each word, each register, is 32 bits long. If it is 64-bit, then they are 64 bits long. 
