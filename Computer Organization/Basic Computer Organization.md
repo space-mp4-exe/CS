@@ -14,13 +14,14 @@ Computers use easily accessible registers to hold data within their cache.
 | OUTR            | 8              | Output register      | Holds output character       |
 
 A bus connects all of these registers together. Remember that only one of these registers can use the bus at one time. Each of the register are have control lines that connect to a control unit. For example, the TR has a load, increment, and clear control line. If a 1 comes from the control unit into the increment line, then the value of TR will be incremented. 
+
 **Notes** 
 - DR and AC are used for arithmetic operations
 - any register can receive data from memory after a read, expect AR and INPR
 - AR and PC are 12 bits because memory is 4096 words, which requires 12 bits to address to.
 # Instructions
-Memory-reference instruction - \[direct/ indirect address{1}]\[opcode{3}]\[Address{12}]
-Register-reference instruction - \[0111]\[Register operation{12}]
+Memory-reference instruction - \[direct/ indirect address{1}]\[opcode{3}]\[Address{12}]   
+Register-reference instruction - \[0111]\[Register operation{12}]   
 IO-reference instruction - \[1111]\[IO operation{12}]
 
 Lets say that you had hex code 013A, in binary this would be 0000 0001 0011 1010. You might be able to see the different parts of the code from the formatting above. 
