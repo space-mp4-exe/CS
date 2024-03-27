@@ -10,9 +10,8 @@ excitation table
 | 1     | 0   | 0   | 1   |
 | 1     | 1   | x   | 0   |
 
-From what you can see from the table, you cannot have a 11 as the input.
-JK 
-excitation table 
+From what you can see from the table, you cannot have a 11 as the input.  
+JK excitation table 
 
 | start | end | J   | K   |
 | ----- | --- | --- | --- |
