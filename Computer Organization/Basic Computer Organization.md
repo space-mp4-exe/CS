@@ -12,6 +12,7 @@ Computers use easily accessible registers to hold data within their cache.
 | TR              | 16             | Temp register        | Holds temporary data         |
 | INPR            | 8              | Input register       | Holds input character        |
 | OUTR            | 8              | Output register      | Holds output character       |
+
 A bus connects all of these registers together. Remember that only one of these registers can use the bus at one time. Each of the register are have control lines that connect to a control unit. For example, the TR has a load, increment, and clear control line. If a 1 comes from the control unit into the increment line, then the value of TR will be incremented. 
 **Notes** 
 - DR and AC are used for arithmetic operations
