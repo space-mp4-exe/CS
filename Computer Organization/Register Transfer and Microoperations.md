@@ -14,6 +14,7 @@ Computers use a bus to transfer data in between registers. They use a bus to lim
 | R3 $\leftarrow \bar{R2}$ + 1 + R1 | R1 plus the 2's complement of R2 (subtraction) |
 | R1 $\leftarrow$ R1 + 1 | increment R1 |
 | R1 $\leftarrow$ R1 - 1 | decrement R1 |
+
 Shifts operations 
 
 | symbolic representation | description |
