@@ -1,0 +1,12 @@
+    ORG 10
+FST, SKI       // look for input
+    BUN FST   // no input
+    CLA       // clear AC
+    INP       // input to AC
+    ADD ECH
+    OUT       // output char
+    HLT       // quit
+
+ECH, DEC 2   // Stores decimal number 2
+    END       // End of the program
+
