@@ -1,0 +1,7 @@
+    ORG ffc
+    a, DEC 1
+    b, DEC 3
+    LDA a
+    ADD b
+    HLT
+    END
