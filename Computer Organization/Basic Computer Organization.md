@@ -54,3 +54,9 @@ Another instruction code could be 1234, binary 0001 0010 0011 0100. It's the sam
 | OUT    | F400          | Output character from AC                |
 | SKI    | F200          | Skip on input flag                      |
 | SKO    | F100          | Skip on output flag                     |
+
+# Questions
+**5-12**
+pc = 3AF, ac = 7EC3, M\[3AF] = 932E, M\[32E] = 09AC, M\[9AC] = 8B9F. 
+The memory at pc is 932E, so this means this instruction is executed next. This is anding with indirect memory. This ANDs 7EC3 and 8B9F which gets 0A62. 
+pc = 3B0, ir = 932E, AC = 0A62, AR = 9AC, DR = 8B9F, E = 1, I = 1, sc = 0000. 
