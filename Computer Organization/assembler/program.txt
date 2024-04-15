@@ -1,17 +1,17 @@
                 ORG 10
                 //get input of 2 digit octal number
 FSA,            SKI 		        //look for input
-	        BUN	    FSA		//No input
+	        BUN	FSA		//No input
 	        CLA			//Clear AC
 	        INP			//input character to AC
-	        ADD	    NEG30	//convert to octal
-	        STA	    INPUT1	//Store first character in INPUT1
+	        ADD	NEG30		//convert to octal
+	        STA	INPUT1		//Store first character in INPUT1
 FSB,            SKI 		        //look for input
-	        BUN	    FSB		//No input
+	        BUN	FSB		//No input
 	        CLA			//Clear AC
 	        INP 		        //Second INP for second character
-	        ADD	    NEG30	//convert to octal
-	        STA	    INPUT2 	//store input in INPUT2
+	        ADD	NEG30		//convert to octal
+	        STA	INPUT2 		//store input in INPUT2
         
                 //convert input to decimal
                 LDA	INPUT1          //dont have to do a loop becuase input will always be 2 digits
