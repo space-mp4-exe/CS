@@ -104,7 +104,6 @@ SPLITDEC,       CLA
                 AND     1PLACE          //changes 00x0 to 000x. moves 16s place into 1s place  
                 CMA                     //I made it negative so I can just add one using INC to count. 
                 INC                     //complement of 16s place
-                INC                     //add one extra because it loops an extra time. eg lessthana loops 3 times if count is -2.
                 STA     COUNT           //counts how many times to add 16 to output2
                 LDA     DECIMAL
                 AND     1PLACE
@@ -118,7 +117,6 @@ SPLITDEC,       CLA
                 STA     OUTPUT1
 CHECKLOOP,      CLA
                 LDA     COUNT           
-                ADD     MIN1            //subtract 1 so that an original count of 0 will still loop
                 SNA                     //an original count value of 1 will not loop
                 BUN     SPLITDEC I      //check if we have to loop
 LESSTHANA,      CLA                     //OUTPUT2 is less than A, so it fits in one variable.
@@ -130,12 +128,12 @@ LESSTHANA,      CLA                     //OUTPUT2 is less than A, so it fits in 
                 STA     OUTPUT2
                 ADD     NEG10           //number is positive if digit is greater than A
                 SPA     
-                BUN     LESSTHANA
+                BUN     LOOP
                 STA     OUTPUT2
                 LDA     OUTPUT1
                 INC 
                 STA     OUTPUT1
-                LDA     COUNT           //counts from negative number to 0. break when 0
+LOOP,           LDA     COUNT           //counts from negative number to 0. break when 0
                 INC
                 STA     COUNT
                 SPA
