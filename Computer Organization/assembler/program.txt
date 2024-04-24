@@ -61,18 +61,25 @@ FALSE2,   	LDA     ZERO    	//input is not divisible by 3 or 5
    	 	OUT   			//print out 0
    	 	HLT
 
-TRUE,           BSA     SPLITDEC        //splits DECIMAL into OUTPUT1 and OUTPUT2
+TRUE,           LDA     DECIMAL
+                STA     DIVIDEND
+                LDA     TEN
+                STA     DIVISOR
+                LDA     QUO
                 CLA
-                LDA     OUTPUT1
+                STA     QUO
+                BSA     DIVIDE        //splits DECIMAL into OUTPUT1 and OUTPUT2
+                CLA
+                LDA     QUO
                 ADD     MIN1            
                 SPA                     //checks if OUTPUT1 is a 0
                 BUN     SKIP            //won't print leading 0
-                LDA     OUTPUT1
-                ADD     ZERO            //converts to ascii
-                OUT                     //print first digit
-SKIP,           LDA     OUTPUT2
-                ADD     ZERO            //converts to ascii
-                OUT                     //prints second digit
+                LDA     QUO
+                ADD     ZERO
+                OUT	
+SKIP,           LDA     DIVIDEND
+                ADD     ZERO
+                OUT
                 HLT
 
                 //DIVIDE subroutine
@@ -93,8 +100,27 @@ DIVIDEL,        STA 	DIVIDEND	//store value of last loop
                 STA 	QUO		//QUO--
                 BSA	DIVIDE  I
 
-                //SPLITDEC subroutine
-                //split hex variable into two decmial variables. ex: if demcimal = 3F then OUTPUT1 = 6, OUTPUT2 = 3
+                //SPLITDEC subroutine (no longer used)
+                //This was my old way of spliting decimal into two variables
+                //This method was based of the Hexadicmal to decimal slides from the first weeks of class
+                //It works by first spliting the first digit of decimal into base 10
+                //I then added 16 to both variables(by incrementing the 10s place and adding 6 to the 1s place)
+                //If the 1s place is greater than 10, I find its value in decimal and increment the 10s place
+                //
+                //Ex: 3F_{8} -> 63_{10}
+                //F -> OUTPUT1 = 1, OUTPUT2 = 5
+                //10splace(OUTPUT1) -> 1 | 5 <- 1s place(OUTPUT2)
+                //                    +1 | 6  (6 + 5) = 11 = B
+                //                     --------
+                //                     2 | B -> 3 | 1 (This is essentially 20 + 11)
+                //                             +1 | 6
+                //                             -------
+                //                              4 | 7 <- not greater than A, so keep the same
+                //                             +1 | 6 (7 + 6) = 13 = D
+                //                             -------
+                //                              5 | D -> 6 | 3 
+                //final output values are OUTPUT1 = 6, OUTPUT2 = 3.
+                //We add 16 to F 3 times because the 16s place of 3F is 3. 
 SPLITDEC,       CLA 
                 LDA     DECIMAL         //input1 - input1 % 16. removes lowest digit. in hex
                 CIR
@@ -153,6 +179,7 @@ MOD5,           DEC     0               //decimal % 5
 THREE,          DEC     3               //for MOD3
 FIVE,           DEC     5               //for MOD5
 SIX,            DEC     6               //for converting hex into dec
+TEN,            DEC     10              //for printing preparation
 DIVIDEND,   	DEC	0 		//the number that is being divided. Stores remainder after running.
 DIVISOR,	DEC 	0		//the number you are dividing by
 QUO,    	DEC 	0		//result of division
