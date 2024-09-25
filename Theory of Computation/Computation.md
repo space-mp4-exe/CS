@@ -38,4 +38,33 @@ The quintuple for this automata is $Q=\{q_{0},q_{1},q_{2}\}$, $\Sigma=\{a,b\}$, 
 | $q_{2}$ | $\emptyset$       | $\emptyset$ | $\emptyset$ |
 ## Regular Expressions
 **Regular language** - a language that is accepted by some finite automaton.
+We say $R$ is a **regular expression** if $R$ is 
+- $a$ for some $a\in\Sigma$ 
+- $\lambda$
+- $\emptyset$
+- ($R_{1}+R_{2}$)
+- ($R_{1}\circ R_{2}$),where $R_{1}$ and $R_{2}$ are regular expressions
+- ($R_{1}*$)
+$L(R)$ is the language of a regular expression $R$.
+$R+\emptyset=R$, $R\circ\lambda =R$. $R+\lambda\neq R$, if $R=0$, then $L(R)=\{ 0 \}$ but $L(R+\lambda)=\{ \lambda,0 \}$. $R\circ\emptyset\neq R$, because if we concatenate something with nothing, we get nothing.
+A language is regular if and only if some regular expression describes it. 
+![[DFA examples.webp|465]] 
 ## Non-regular Languages
+An example of a non regular language would be $C=0^n1^n$, where $n$ some random number. If $n$ was defined as a specific number, then it would be regular. $L=0^*1^*$ is regular. $C$ is not regular because it seems to need to remember how many 0s there were to match it to the number of 1s. 
+## Pumping Lemma for Regular Languages
+- All regular languages have a special property. All strings in the language can be "pumped" if they are at least as long as a certain special value, called the *pumping length*.
+
+If $A$ is a regular language, then there is a number $p$ (the pumping length) where, if $s$ is any string in $A$ of length at least $p$, then $s$ may be divided in three parts 
+$$
+s = xyz
+$$ such that 
+- $\forall i \in \{ 0,1,2,\dots \}$, it holds that $xyz\in A$
+- $|y|>0$
+- $|xy|\leq p$
+Languages can be split into those three parts. The part before the pumping, the part to be pumped, and the final accept state. The pumping part has to happen in the first $p$ characters. 
+
+**Ex** - $B =\{0^n 1^n|n\geq 0\}$ show that $B$ is not regular. Lets use proof by contradiction using pumping lemma. The pumping length is $p$. We can use $p$ to make $s=0^p 1^p$. $s \in B$ and $|s|=2p\geq p$, so we can apply the pumping lemma. 
+We can tell from the third rule that $|xy|\leq p$, therefore $x =0^k, y=0^l$ and $k +l=p,l\geq 0$. Pumping lemma states then that we should be able to repeat the 0s as many times as we want and still be in $B$, but since there has to be as many 1s as 0s, $B$ isn't regular. 
+$s'=xyyz$ should belong to $B$, however $s'=0^k 0^l 0^l z$. We have $k+l+l+p-l-k$ number of 0s, which simplifies to $p+l$ 0s where $l$ is bigger than 1. We also have $p$ number of 1s. So we have a different number of 0s from 1s. 
+
+Lemma is hard man, its all so abstract and the solutions for each language are so different from each other. 
