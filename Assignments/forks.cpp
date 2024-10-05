@@ -2,7 +2,7 @@
 #include<unistd.h>
 
 int main(){
-    int p1=1, p2=2, p3 = 3;
+    int p1=20, p2=0, p3 = 0;
     p1 = fork();
     if(p2>0) p2 = fork();
     if(p1>0) p3 = fork();
