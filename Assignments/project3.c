@@ -54,10 +54,10 @@ int main(){
 void reader(){
 	char newChar;
 	FILE* fp;
+	fp = fopen("mytest.dat", "r");
 	element next_produced;
 
 	while (fscanf(fp,"%c",&newChar) != EOF) {
-		//printf("in writer loop\n");
 		// Generate new item
 		next_produced.character = newChar;
 
@@ -71,29 +71,29 @@ void reader(){
 	}
 	//add end of file character to buffer
 	next_produced.character = '*';
+	sem_wait(&semBuf);
 	buffer[inFlag] = next_produced;
-	printf("done reading file\n");
+	sem_post(&semBuf);
 
 	fclose(fp);
 }
 
 void printer(){
 	element next_consumed;
-	sem_wait(&semBuf);//shouldn't run before there is something in the buffer
+	//sem_wait(&semBuf);//shouldn't run before there is something in the buffer
 	while (buffer[outFlag].character != '*') {
-		//printf("in reader loop\n");
 		// Wait for item to be available
 		while (inFlag == outFlag); /* do nothing */
 
 		// Get the next item
 		sem_wait(&semBuf);
 		next_consumed = buffer[outFlag];
+		printf("%c",next_consumed.character);
 		sem_post(&semBuf);
 		outFlag = (outFlag + 1) % BUFFER_SIZE;
 		sleep(1);
 
 		//print next character in file
-		printf("%c",next_consumed.character);
 	}
-	printf("\n");
+	//printf("\n");
 }
