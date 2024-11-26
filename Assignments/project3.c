@@ -15,9 +15,14 @@
 void reader();
 void printer();
 
+//struct for elements in the buffer
 typedef struct{
 	char character;
 }element;
+//struct for semaphores in shared memory
+typedef struct{
+	sem_t semBuf;
+}sharedMem;
 element buffer[BUFFER_SIZE];
 int inFlag = 0;
 int outFlag = 0;
@@ -25,8 +30,22 @@ int outFlag = 0;
 sem_t semBuf;//semaphore for managing buffer access
 
 int main(){
-	sem_init(&semBuf, 0, 1);//initalize semaphore
+	//create semaphore in shared memory
+	char* name = "Semaphore";
+	int fd;
+	fd = shm_open(name, O_EXCL | O_CREAT | O_RDWR, 0666);
+	if(fd == -1){//error message
+		fd = shm_open(name, O_CREAT | O_RDWR, 0666);
+		shm_unlink(name);
+		perror("main: shm_open: ");
+		exit(1);
+	}
+	ftruncate(fd, sizeof(sharedVar));
+	//map struct to shared memory
+	sharedMem = mmap(NULL, sizeof(sharedVar), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
+	sem_init(&sharedMem->semBuff, 1, 1);//initialize semaphorek
+	
 	pthread_t tid1[1]; /* process id for thread 1 */
 	pthread_t tid2[1]; /* process id for thread 2 */
 	pthread_attr_t attr[1]; /* attribute pointer array */
@@ -46,7 +65,12 @@ int main(){
 	pthread_join(tid2[0], NULL);
 	//Terminate threads
 	pthread_exit(NULL);
-	sem_destroy(&semBuf);
+	
+	//deallocate semaphore
+	sem_destroy(&sharedMem->sem);
+
+	//unlink shared memory
+	shm_unlink(name);
 
 	return 0;
 }
@@ -88,8 +112,9 @@ void printer(){
 		// Get the next item
 		sem_wait(&semBuf);
 		next_consumed = buffer[outFlag];
-		printf("%c",next_consumed.character);
 		sem_post(&semBuf);
+		printf("%c",next_consumed.character);
+		fflush(stdout);
 		outFlag = (outFlag + 1) % BUFFER_SIZE;
 		sleep(1);
 
