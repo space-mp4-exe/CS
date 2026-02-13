@@ -9,8 +9,10 @@ int main(){
     long n = 1000000000;//number of points 
     long inside = 0;//number of point inside the circle
     
+    double start = omp_get_wtime();// start timer
+
     double x; double y; //variables for random point
-# pragma omp parallel private(x, y) num_threads(10)
+# pragma omp parallel private(x, y) num_threads(16)
     {
 
         //setting up random number generator
@@ -30,7 +32,9 @@ int main(){
     }
 
     double result = 4 * ((double) inside/ n);//pi estimation
-    printf("insde: %ld\n", inside);
-    printf("%f \n", result);
+    double end = omp_get_wtime();
+    double time = end - start;
+    printf("inside: %ld. Estimation: %f\n", inside, result);
+    printf("time taken: %f\n", time);
     return 0;
 }

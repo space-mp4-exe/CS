@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     serial_mult_mat_vec
+relocations:     []
+...
