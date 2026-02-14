@@ -60,7 +60,6 @@ int main(int argc, char* argv[])
         char* token;
         token = strtok(line, ",");
         while(token != NULL && index < n_row1 * n_col1){
-            printf("started parsing matrix A\n");
             long int value;
             //char* endptr;
 
@@ -70,7 +69,6 @@ int main(int argc, char* argv[])
             token = strtok(NULL, ","); //token takes on next value in row
         }
     }
-    printf("parsed matrix A files\n");
 
     // inserting information into vector
     index = 0; // resetting index for the new array
@@ -90,21 +88,22 @@ int main(int argc, char* argv[])
 
     // We are interesting in timing the matrix-matrix multiplication only
     // Record the start time
-    double start = 1; //omp_get_wtime();
+    double start = omp_get_wtime();
     
     // TODO: Parallelize the matrix-matrix multiplication
+#   pragma omp parallel for num_threads(thread_count)
     for (int i = 0; i < n_row1; i++) {
         for (int j = 0; j < n_col2; j++) {
             output[i * n_row1 + j] = 0;
 
             for (int k = 0; k < n_row2; k++) {
-                output[i * n_row1 + k] += matrixA[i * n_row1 + k] * matrixB[k * n_col2 + j];
+                output[i * n_row1 + j] += matrixA[i * n_row1 + k] * matrixB[k * n_col2 + j];
             }
         }
     }
 
     // Record the finish time        
-    double end = 2; //omp_get_wtime();
+    double end = omp_get_wtime();
     
     // Time calculation (in seconds)
     double time_passed = end - start;
