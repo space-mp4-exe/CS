@@ -8,3 +8,5 @@
 */*.out
 *.exe
 *.pyc
+test_data
+__pychache__ 

@@ -33,7 +33,7 @@ int main (int argc, char *argv[])
     FILE* outputFile = fopen(argv[3], "w");
 
     // Get number of threads to use
-    int thread_count = argv[5];
+    int thread_count = strtol(argv[5], &p1, 10);
 
     // Open time file
     FILE* timeFile = fopen(argv[4], "w");
@@ -47,7 +47,7 @@ int main (int argc, char *argv[])
     if (!buffer)
         fclose(inputFile),
         fclose(outputFile),
-        // fclose(timeFile),
+        fclose(timeFile),
         free(buffer),
         fputs("Memory alloc for inputFile1 failed!\n", stderr), 
         exit(1);
@@ -56,7 +56,7 @@ int main (int argc, char *argv[])
     if(1 != fread(buffer, lSize, 1, inputFile))
         fclose(inputFile),
         fclose(outputFile),
-        // fclose(timeFile),
+        fclose(timeFile),
         free(buffer),
         fputs("Failed reading into the input buffer!\n", stderr),
         exit(2);
@@ -66,7 +66,7 @@ int main (int argc, char *argv[])
     if (!encrypted_buffer)
         fclose(inputFile),
         fclose(outputFile),
-        // fclose(timeFile),
+        fclose(timeFile),
         free(encrypted_buffer),
         free(buffer),
         fputs("Memory alloc for the encrypted buffer failed!\n", stderr),
@@ -76,13 +76,17 @@ int main (int argc, char *argv[])
     // ----> Begin Encryption <----- //
     // Encrypt the buffer into the encrypted_buffer
     double start = omp_get_wtime();
-#   pragma omp for num_threads(thread_count)
+#   pragma omp parallel for num_threads(thread_count)
     for (int i = 0; i<lSize; i++) {
         encrypted_buffer[i] = buffer[i] + key;
     }
     if (DEBUG) printf("Values encypted! \n");
 
     double end = omp_get_wtime();
+    double time_passed = end - start;
+
+    // Save time to file
+    fprintf(timeFile, "%f", time_passed);
 
     // Print to the output file
     for (int i = 0; i<lSize; i++) {
@@ -94,7 +98,7 @@ int main (int argc, char *argv[])
     // Cleanup
     fclose(inputFile);
     fclose(outputFile);
-    // fclose(timeFile);
+    fclose(timeFile);
     free(encrypted_buffer);
     free(buffer);
 

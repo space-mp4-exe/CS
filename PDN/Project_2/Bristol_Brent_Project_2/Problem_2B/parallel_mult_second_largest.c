@@ -91,13 +91,21 @@ int main(int argc, char* argv[])
     double start = omp_get_wtime();
     
     // TODO: Parallelize the matrix-matrix multiplication
-#   pragma omp parallel for num_threads(thread_count)
+    long maximum = 0; long second = 0;
+#   pragma omp parallel for num_threads(thread_count) reduction(max: second)
     for (int i = 0; i < n_row1; i++) {
         for (int j = 0; j < n_col2; j++) {
             output[i * n_col2 + j] = 0;
 
             for (int k = 0; k < n_row2; k++) {
                 output[i * n_col2 + j] += matrixA[i * n_col1 + k] * matrixB[k * n_col2 + j];
+            }
+            if(output[i * n_col2 + j] > maximum){
+                second = maximum;
+                maximum = output[i * n_col2 + j];
+            }
+            else if(output[i * n_col2 + j] > second){
+                second = output[i * n_col2 + j];
             }
         }
     }
@@ -112,15 +120,7 @@ int main(int argc, char* argv[])
     fprintf(outputTime, "%f", time_passed);
 
     // TODO: save the output matrix to the output csv file
-    for (int i = 0; i < n_row1; i++){
-        for(int j = 0; j < n_col2; j++){
-            fprintf(outputFile, "%ld", output[i * n_col2 + j]);
-
-            if (j < n_col2 - 1)
-                fprintf(outputFile, ",");
-        }
-        fprintf(outputFile, "\n"); //end of row, move to next row
-    }
+    fprintf(outputFile, "%ld", second);
 
     // Cleanup
     fclose(inputMatrix1);
