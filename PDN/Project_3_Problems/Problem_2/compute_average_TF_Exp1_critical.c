@@ -23,7 +23,7 @@ struct Genes {
 
 // Read Genes -------------------------- //
 //      Reads in the gene-data from a file.
-struct Genes read_genes(FILE* inputFile) {
+struct Genes read_genes(FILE* inputFile, int thread_count) {
 
     // return this
     struct Genes genes;
@@ -52,12 +52,15 @@ struct Genes read_genes(FILE* inputFile) {
 
             int line_len = strlen(line);
 
-            #pragma omp parallel for
+            //#pragma omp parallel for num_threads(thread_count)
             for (int i = 0; i < line_len; ++i) {
                 char c = line[i];
                 if (c == 'A' || c == 'C' || c == 'G' || c == 'T') {
-                    genes.gene_sequences[genes.num_genes * GENE_SIZE + currentGeneIndex] = c;  // put letter into gene
-                    currentGeneIndex += 1;                                                     // increase currentGene size
+                    #pragma omp critical
+                    {
+                        genes.gene_sequences[genes.num_genes * GENE_SIZE + currentGeneIndex] = c;  // put letter into gene
+                        currentGeneIndex += 1;                                                     // increase currentGene size
+                    }
                 }
             }
 
@@ -131,8 +134,8 @@ void process_tetranucs(struct Genes genes, int* gene_TF, int gene_index) {
 //      Processes the tetranucleotides.
 int main(int argc, char* argv[]) {
     // Check for console errors
-    if (argc != 4) {
-        printf("USE LIKE THIS:\ncompute_average_TF_Exp1 input.fna average_TF.csv time.csv\n");
+    if (argc != 5) {
+        printf("USE LIKE THIS:\ncompute_average_TF_Exp1 input.fna average_TF.csv time.csv num_threads\n");
         exit(-1);
     }
 
@@ -160,6 +163,14 @@ int main(int argc, char* argv[]) {
         exit(-4);
     }
 
+    int thread_count = strtol(argv[4], NULL, 10);
+    if (thread_count == NULL){
+        printf("ERROR: Number of threads not defined");
+        fclose(inputFile);
+        fclose(outputFile);
+        exit(-5);
+    }
+
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
 
 
@@ -167,7 +178,7 @@ int main(int argc, char* argv[]) {
     //      access gene like: genes.genes[gene_index*GENE_SIZE + char_index]
     //      access each gene's size like: genes.gene_sizes[gene_index]
     //      access the total number of genes like: genes.num_genes
-    struct Genes genes = read_genes(inputFile);
+    struct Genes genes = read_genes(inputFile, thread_count);
 
     // Total number of tetranucs
     int* TF = (int*)calloc(NUM_TETRANUCS, sizeof(int));
@@ -182,6 +193,7 @@ int main(int argc, char* argv[]) {
     */ 
 
     // TODO: parallelize the computations for each gene.
+    #pragma omp parallel for num_threads(thread_count)
     for (int gene_index = 0; gene_index < genes.num_genes; ++gene_index) {
 
         // Compute this gene's TF
@@ -189,9 +201,12 @@ int main(int argc, char* argv[]) {
         process_tetranucs(genes, gene_TF, gene_index);
 
         // Add this gene's TF to the running total TF
+        #pragma omp critical 
+        {
         for (int t = 0; t < NUM_TETRANUCS; ++t)
             TF[t] += gene_TF[t];
-
+        }
+        
         free(gene_TF);
     }
 

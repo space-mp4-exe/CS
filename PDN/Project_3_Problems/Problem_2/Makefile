@@ -1,14 +1,14 @@
-in=in.fna # starter input file name, can set like "make run_starter in=other.fna"
+in=../Project_3_Tests/DNA_files/GRCh38_reduced_rna.fna # starter input file name, can set like "make run_starter in=other.fna"
 
 all: make_starter
 
 # duplicate this for other files
-make_starter: compute_average_TF_Exp1_starter.c
-	gcc -fopenmp -g -Wall -o compute_average_TF_Exp1_starter compute_average_TF_Exp1_starter.c -lm -std=c99
+make_starter: compute_average_TF_Exp1_critical.c
+	gcc -fopenmp -g -Wall -o compute_average_TF_Exp1_critical compute_average_TF_Exp1_critical.c -lm -std=c99
 	
 
 clean:
-	$(RM) compute_average_TF_Exp1_starter
+	$(RM) compute_average_TF_Exp1_critical
 
 
 # Below are commands to help you run your program easily.
@@ -17,7 +17,7 @@ run: run_starter
 
 # duplicate this for other files
 run_starter:
-	./compute_average_TF_Exp1_starter $(in) OUTPUT_starter_1th.csv TIME_starter_1th.csv 1
-	./compute_average_TF_Exp1_starter $(in) OUTPUT_starter_2th.csv TIME_starter_2th.csv 2
-	./compute_average_TF_Exp1_starter $(in) OUTPUT_starter_4th.csv TIME_starter_4th.csv 4
-	./compute_average_TF_Exp1_starter $(in) OUTPUT_starter_8th.csv TIME_starter_8th.csv 8
+	./compute_average_TF_Exp1_critical $(in) OUTPUT_critical_1th.csv TIME_critical_1th.csv 1
+	./compute_average_TF_Exp1_critical $(in) OUTPUT_critical_2th.csv TIME_critical_2th.csv 2
+	./compute_average_TF_Exp1_critical $(in) OUTPUT_critical_4th.csv TIME_critical_4th.csv 4
+	./compute_average_TF_Exp1_critical $(in) OUTPUT_critical_8th.csv TIME_critical_8th.csv 8
