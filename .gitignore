@@ -2,7 +2,7 @@
 .obsidian/
 .DS_Store
 */*.DS_Store
-*/*.dSYM
+*.dSYM
 */*.exe
 */*.o
 */*.out

@@ -163,8 +163,9 @@ int main(int argc, char* argv[]) {
         exit(-4);
     }
 
-    int thread_count = strtol(argv[4], NULL, 10);
-    if (thread_count == NULL){
+    int thread_count = -1;
+    thread_count = strtol(argv[4], NULL, 10);
+    if (thread_count == -1){
         printf("ERROR: Number of threads not defined");
         fclose(inputFile);
         fclose(outputFile);
