@@ -1,0 +1,47 @@
+#################################################################################
+# ----------------------------------------------------------------------------- #
+To run your CUDA programs, please use the GPEL machines.
+You are only able to access these machines on OU's network.
+
+If you are not using the internet on campus, please do this:
+	 1) Visit this website: https://www.ou.edu/marcomm/cms/get-started/vpn
+	2a) MAC users:   Follow "For Mac" and add a VPN network.
+	2b) other users: Follow "For PC" and install the Cisco Anyconnect client.
+
+# ----------------------------------------------------------------------------- #
+When you are connected to OU's network, you are now able to log in.
+You will use your OU 4x4 and password to login this time, NOT oucspdn0xx!
+There are 6 machines. Each has an address:
+	gpelX.cs.nor.ou.edu 
+	Where X is any number 8 to 13.
+
+!) MAC/Linux users:
+   Simply ssh into the machines.
+	1) ssh into Your4x4@gpelX.cs.nor.ou.edu
+	2) Enter in your password to login!
+	Ex. An example student might use: "ssh roux0011@gpelX.cs.nor.ou.edu"
+
+!) Windows users:
+   You should use PuTTY and WinSCP to log into the machines.
+	PuTTY:
+	 1) Under "Host Name (or IP address)", put gpelX.cs.nor.ou.edu.
+	 2) Make sure the "Port" is 22.
+	 3) The connection type should be SSH.
+	 4) Open the connection and enter your 4x4 and password.
+
+	WinSCP:
+	 1) Under "Host Name", put gpelX.cs.nor.ou.edu.
+	 2) Make sure the "Port number" is 22.
+	 3) Your "User name" should be your 4x4
+	 4) Open the connection and enter your password.
+
+If your computer cannot find the gpel machine, please check that your 
+VPN connection is correct. You must be using OU's network for it to work.
+
+# ----------------------------------------------------------------------------- #
+
+You do not need sbatch files to run your programs like you do on Schooner!
+Simply run all of your programs from the command line. :)
+
+# ----------------------------------------------------------------------------- #
+#################################################################################
