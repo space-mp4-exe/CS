@@ -1,4 +1,3 @@
-
 // To generate random value
 __device__
 unsigned int random_kernel(unsigned int seed, unsigned int index);
@@ -38,6 +37,8 @@ unsigned int random_kernel(unsigned int seed, unsigned int index) {
     );
 
     // generate a random number
-    return (unsigned int)(curand(&state));
+    unsigned int rand = (unsigned int)(curand(&state));
+    //printf("Thread %u: Random Value %u\n", index, rand);
+    return rand;
 
 } // End Random Kernel //

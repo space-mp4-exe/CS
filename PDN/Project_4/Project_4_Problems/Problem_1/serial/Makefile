@@ -4,20 +4,20 @@ all: make_serial
 # ------------------------------------------------------------------------------- #
 
 # input file and size
-FILE     = debug_1000.csv
-SIZE	 = 1000
+FILE     = ../../Project_4_Tests/Problem_1_and_2/in_20k.csv
+SIZE	 = 20000
 
 # number of trials to run
-TRIALS_A = 5000
-TRIALS_B = 10000
+TRIALS_A = 5000000
+TRIALS_B = 10000000
 
 # output file suffix
-OUT_A    = 1k_5k
-OUT_B    = 1k_10k
+OUT_A    = 20k_5m
+OUT_B    = 20k_10m
 
 
 run:
-	clear 
+#	clear 
 	make
 	./serial_mining $(FILE) $(SIZE) $(TRIALS_A) _out_$(OUT_A).csv _time_$(OUT_A).csv
 	./serial_mining $(FILE) $(SIZE) $(TRIALS_B) _out_$(OUT_B).csv _time_$(OUT_B).csv

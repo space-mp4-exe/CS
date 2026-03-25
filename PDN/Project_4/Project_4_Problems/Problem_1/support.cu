@@ -30,15 +30,30 @@ void verify(float *A, float *B, float *C, int n) {
 }
 
 void startTime(Timer* timer) {
-    gettimeofday(&(timer->startTime), NULL);
+  #ifdef _WIN32
+    QueryPerformanceCounter(&(timer->startTime));
+  #else
+      gettimeofday(&(timer->startTime), NULL);
+  #endif
 }
 
 void stopTime(Timer* timer) {
-    gettimeofday(&(timer->endTime), NULL);
+  #ifdef _WIN32
+      QueryPerformanceCounter(&(timer->endTime));
+  #else
+      gettimeofday(&(timer->endTime), NULL);
+  #endif
 }
 
 float elapsedTime(Timer timer) {
-    return ((float) ((timer.endTime.tv_sec - timer.startTime.tv_sec) \
-                + (timer.endTime.tv_usec - timer.startTime.tv_usec)/1.0e6));
+  #ifdef _WIN32
+      LARGE_INTEGER frequency;
+      QueryPerformanceFrequency(&frequency);
+      return (float)(timer.endTime.QuadPart - timer.startTime.QuadPart) 
+                    / (float)frequency.QuadPart;
+  #else
+      return ((float)((timer.endTime.tv_sec  - timer.startTime.tv_sec)
+                    + (timer.endTime.tv_usec - timer.startTime.tv_usec) / 1.0e6));
+  #endif
 }
 

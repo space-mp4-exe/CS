@@ -10,11 +10,19 @@
     #define __FILEH__
 
 
-    #include <sys/time.h>
-    typedef struct {
-        struct timeval startTime;
-        struct timeval endTime;
-    } Timer;
+    #ifdef _WIN32
+        #include <windows.h>
+        typedef struct {
+            LARGE_INTEGER startTime;
+            LARGE_INTEGER endTime;
+        } Timer;
+    #else
+        #include <sys/time.h>
+        typedef struct {
+            struct timeval startTime;
+            struct timeval endTime;
+        } Timer;
+    #endif
 
     #ifdef __cplusplus
     extern "C" {
