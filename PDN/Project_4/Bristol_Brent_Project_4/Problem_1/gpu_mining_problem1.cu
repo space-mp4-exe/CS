@@ -101,8 +101,8 @@ int main(int argc, char* argv[]) {
     unsigned int* nonce_array = (unsigned int*)calloc(trials, sizeof(unsigned int));
     cuda_ret = cudaMemcpy(nonce_array, device_nonce_array, trials * sizeof(unsigned int), cudaMemcpyDeviceToHost);
     err_check(cuda_ret, (char*)"Unable to read nonce from device memory!", 3);
-    printf("Random Transaction Value: %u\n", transactions[10]);
-    printf("Random Nonce Value: %u\n", nonce_array[10]);
+    //printf("Random Transaction Value: %u\n", transactions[10]);
+    //printf("Random Nonce Value: %u\n", nonce_array[10]);
 
 
     // ------ Step 2: Generate the hash values ------ //
