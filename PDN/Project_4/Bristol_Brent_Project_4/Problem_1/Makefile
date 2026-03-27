@@ -8,8 +8,14 @@ OBJ	    = gpu_mining_problem1.o support.o
 
 default: $(EXE)
 
-$(EXE):$(OBJ)
-	$(NVCC) -o $@ $^ $(LD_FLAGS_WIN)
+ifeq ($(OS),Windows_NT)
+	$(EXE):$(OBJ)
+		$(NVCC) -o $@ $^ $(LD_FLAGS_WIN)
+else
+	$(EXE):$(OBJ)
+		$(NVCC) -o $@ $^ $(LD_FLAGS)
+endif
+
 
 # ------------------------------------------------------------------------------- #
 
@@ -35,10 +41,18 @@ run:
 # ------------------------------------------------------------------------------- #
 
 gpu_mining_problem1.o: gpu_mining_problem1.cu nonce_kernel.cu hash_kernel.cu support.h
+ifeq ($(OS),Windows_NT)
 	$(NVCC) -c -o $@ gpu_mining_problem1.cu $(NVCC_FLAGS_WIN) $(LD_FLAGS_WIN) 
+else
+	$(NVCC) -c -o $@ gpu_mining_problem1.cu $(NVCC_FLAGS) $(LD_FLAGS)
+endif
 
 support.o: support.cu support.h
+ifeq ($(OS),Windows_NT)
 	$(NVCC) -c -o $@ support.cu $(NVCC_FLAGS_WIN) $(LD_FLAGS_WIN)
+else
+	$(NVCC) -c -o $@ support.cu $(NVCC_FLAGS) $(LD_FLAGS)
+endif
 
 clean:
 	rm -rf *.o $(EXE)

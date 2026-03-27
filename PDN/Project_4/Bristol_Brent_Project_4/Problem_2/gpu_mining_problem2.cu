@@ -17,6 +17,7 @@
 #include "support.h"
 #include "hash_kernel.cu"
 #include "nonce_kernel.cu"
+#include "reduction_kernel.cu"
 
 // to activate debug statements
 #define DEBUG 1

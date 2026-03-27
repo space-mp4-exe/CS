@@ -1,44 +1,24 @@
-// To generate random value
-__device__
-unsigned int random_kernel(unsigned int seed, unsigned int index);
-
-
-/* Nonce Kernel ----------------------------------
-*       Generates an array of random nonce values.
-*/
 __global__
-void nonce_kernel(unsigned int* nonce_array, unsigned int array_size, unsigned int mod, unsigned int seed) {
-
-    // Calculate thread rank
-    unsigned int index = blockDim.x * blockIdx.x + threadIdx.x;
-
-    // Generate random nonce values for every item in the array
-    if (index < array_size) {
-        unsigned int rand = random_kernel(seed, index);
-        nonce_array[index] = rand % mod;
+void reduction_kernel(unsigned int* hash_array, unsigned int* min_index, int n) {
+    extern __shared__ unsigned int sdata[];
+    unsigned int tid = threadIdx.x;
+    unsigned int index = blockIdx.x * blockDim.x + threadIdx.x;
+    if (index < n) {
+        sdata[tid] = index; // store index
+    } else {
+        sdata[tid] = n; // invalid
     }
-
-} // End Nonce Kernel //
-
-
-
-/* Random Kernel ----------------
-*       Generates a random value.
-*/
-__device__
-unsigned int random_kernel(unsigned int seed, unsigned int index) {
-
-    curandState_t state;
-    curand_init(
-        seed,  // the seed can be the same for every thread and is set to be the time
-        index, // the sequence number should be different for every thread
-        0,     // an offset into the random number sequence at which to begin sampling
-        &state // the random state object
-    );
-
-    // generate a random number
-    unsigned int rand = (unsigned int)(curand(&state));
-    //printf("Thread %u: Random Value %u\n", index, rand);
-    return rand;
-
-} // End Random Kernel //
+    __syncthreads();
+    for (unsigned int s = blockDim.x / 2; s > 0; s >>= 1) {
+        if (tid < s) {
+            unsigned int other = sdata[tid + s];
+            if (other < n && (sdata[tid] >= n || hash_array[other] < hash_array[sdata[tid]])) {
+                sdata[tid] = other;
+            }
+        }
+        __syncthreads();
+    }
+    if (tid == 0) {
+        min_index[blockIdx.x] = sdata[0];
+    }
+} // End Reduction Kernel //
