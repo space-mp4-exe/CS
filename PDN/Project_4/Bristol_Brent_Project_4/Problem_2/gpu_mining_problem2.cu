@@ -86,7 +86,7 @@ int main(int argc, char* argv[]) {
     // Allocate the nonce device memory
     unsigned int* device_nonce_array;
     cuda_ret = cudaMalloc((void**)&device_nonce_array, trials * sizeof(unsigned int));
-    err_check(cuda_ret, (char*)"Unable to allocate nonces to device memory!", 1);
+    err_check(cuda_ret, (char*)"Unable to allocate nonces to device memory!", 2);
 
     // Launch the nonce kernel
     nonce_kernel <<< dimGrid, dimBlock >>> (
@@ -96,12 +96,12 @@ int main(int argc, char* argv[]) {
         SEED                // random seed
         );
     cuda_ret = cudaDeviceSynchronize();
-    err_check(cuda_ret, (char*)"Unable to launch nonce kernel!", 2);
+    err_check(cuda_ret, (char*)"Unable to launch nonce kernel!", 3);
 
     // Get nonces from device memory
     unsigned int* nonce_array = (unsigned int*)calloc(trials, sizeof(unsigned int));
     cuda_ret = cudaMemcpy(nonce_array, device_nonce_array, trials * sizeof(unsigned int), cudaMemcpyDeviceToHost);
-    err_check(cuda_ret, (char*)"Unable to read nonce from device memory!", 3);
+    err_check(cuda_ret, (char*)"Unable to read nonce from device memory!", 4);
     //printf("Random Transaction Value: %u\n", transactions[10]);
     //printf("Random Nonce Value: %u\n", nonce_array[10]);
 
@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
     // Allocate the hash device memory
     unsigned int* device_hash_array;
     cuda_ret = cudaMalloc((void**)&device_hash_array, trials * sizeof(unsigned int));
-    err_check(cuda_ret, (char*)"Unable to allocate hashes to device memory!", 4);
+    err_check(cuda_ret, (char*)"Unable to allocate hashes to device memory!", 5);
 
     // Launch the hash kernel
     hash_kernel <<< dimGrid, dimBlock >>> (
@@ -132,17 +132,15 @@ int main(int argc, char* argv[]) {
         MAX                     // to mod with
         );
     cuda_ret = cudaDeviceSynchronize();
-    err_check(cuda_ret, (char*)"Unable to launch hash kernel!", 5);
+    err_check(cuda_ret, (char*)"Unable to launch hash kernel!", 6);
 
     // Get hashes from device memory
     unsigned int* hash_array = (unsigned int*)calloc(trials, sizeof(unsigned int));
     cuda_ret = cudaMemcpy(hash_array, device_hash_array, trials * sizeof(unsigned int), cudaMemcpyDeviceToHost);
-    err_check(cuda_ret, (char*)"Unable to read hash from device memory!", 6);
+    err_check(cuda_ret, (char*)"Unable to read hash from device memory!", 7);
 
     // Free device memory
-    cudaFree(device_nonce_array);
-    cudaFree(device_hash_array);
-    cudaFree(device_transactions);
+        cudaFree(device_transactions);
 
     // Free memory
     free(transactions);
@@ -150,20 +148,66 @@ int main(int argc, char* argv[]) {
 
     // ------ Step 3: Find the nonce with the minimum hash value ------ //
 
-    // TODO Problem 2: find the minimum in the GPU by reduction
+    // unsigned int min_hash  = MAX;
+    // unsigned int min_nonce = MAX;
+    // for (int i = 0; i < trials; i++) {
+    //     if (hash_array[i] < min_hash) {
+    //         min_hash  = hash_array[i];
+    //         min_nonce = nonce_array[i];
+    //     }
+    // }
+    int output_size = ceil(trials/(BLOCK_SIZE*2.0));
+    // Allocate the minimum hash device memory
+    unsigned int* device_min_hash;
+    cuda_ret = cudaMalloc((void**)&device_min_hash, output_size * sizeof(unsigned int));
+    err_check(cuda_ret, (char*)"Unable to allocate min hash to device memory!", 8);
+        
+    // Allocate the minimum nonce device memory
+    unsigned int* device_min_nonce;
+    cuda_ret = cudaMalloc((void**)&device_min_nonce, output_size * sizeof(unsigned int));
+    err_check(cuda_ret, (char*)"Unable to allocate minimum nonce to device memory!", 9);
+
+    reduction_kernel <<< output_size, dimBlock >>> (
+        device_hash_array,  // input array of hashes
+        device_min_hash,    // output minimum hash
+        device_nonce_array, // input array of nonces
+        device_min_nonce,   // output nonce of minimum hash
+        trials              // size of array
+        );
+    cuda_ret = cudaDeviceSynchronize();
+    err_check(cuda_ret, (char*)"Unable to launch reduction kernel!", 10);
+
+    // Get minimum hash index from device memory
+    unsigned int* min_hash_array = (unsigned int*)calloc(output_size, sizeof(unsigned int));
+    cuda_ret = cudaMemcpy(min_hash_array, device_min_hash, output_size * sizeof(unsigned int), cudaMemcpyDeviceToHost);
+    err_check(cuda_ret, (char*)"Unable to read minimum hash from device memory!", 11);
+
+    // Get minimum nonce from device memory
+    unsigned int* min_nonce_array = (unsigned int*)calloc(output_size, sizeof(unsigned int));
+    cuda_ret = cudaMemcpy(min_nonce_array, device_min_nonce, output_size * sizeof(unsigned int), cudaMemcpyDeviceToHost);
+    err_check(cuda_ret, (char*)"Unable to read minimum nonce from device memory!", 12);
+
     unsigned int min_hash  = MAX;
     unsigned int min_nonce = MAX;
-    for (int i = 0; i < trials; i++) {
-        //printf("Hash %u: %u\n", i, hash_array[i]);
-        if (hash_array[i] < min_hash) {
-            min_hash  = hash_array[i];
-            min_nonce = nonce_array[i];
+    //printf("output size: %d\n", output_size);
+    for (int i = 0; i < output_size; i++) {
+        //printf("Hash %u: %u\n", i, min_hash_array[i]);
+        if (min_hash_array[i] < min_hash) {
+            min_hash  = min_hash_array[i];
+            min_nonce = min_nonce_array[i];
         }
     }
+
+
 
     // Free memory
     free(nonce_array);
     free(hash_array);
+    free(min_hash_array);
+    free(min_nonce_array);
+    cudaFree(device_nonce_array);
+    cudaFree(device_hash_array);
+
 
     stopTime(&timer);
     // ----------------------------------------------------------------------------- //
