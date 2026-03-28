@@ -4,6 +4,7 @@ NVCC_FLAGS  = -O3 -I/usr/local/cuda/include
 LD_FLAGS    = -lcudart -L/usr/local/cuda/lib64
 EXE	        = convolution_CUDA
 OBJ	        = convolution_CUDA.o support.o
+DIM 	   	= 2048
 
 default: $(EXE)
 
@@ -18,3 +19,7 @@ $(EXE): $(OBJ)
 
 clean:
 	rm -rf *.o $(EXE)
+
+FILE        = ../../test_data/Problem_3/mat_input.csv
+run: 
+	./convolution_CUDA $(DIM) $(DIM) $(FILE) mat_output.csv time.csv
