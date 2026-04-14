@@ -65,11 +65,12 @@ int main (int argc, char *argv[])
     double* local_vec1 = malloc(chunk_size * sizeof(double));
     double* local_vec2 = malloc(chunk_size * sizeof(double));
 
-    double starttime = MPI_Wtime(); // Start timer
 
     // Scatter the vectors to all processes
     MPI_Scatter(vec_1, chunk_size, MPI_DOUBLE, local_vec1, chunk_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
     MPI_Scatter(vec_2, chunk_size, MPI_DOUBLE, local_vec2, chunk_size, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+
+    double starttime = MPI_Wtime(); // Start timer
 
     // Compute local dot product
     double local_dot_product = 0.0;
